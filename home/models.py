@@ -1,12 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 
 # Create your models here.
 
 class Flights(models.Model):
-    id = models.AutoField(primary_key=True)
-    city = models.CharField(max_length=200)
     source = models.CharField(max_length=200)
     date = models.DateField()
     destination = models.CharField(max_length=200)
@@ -24,7 +22,6 @@ class Flights(models.Model):
 
 
 class Hotels(models.Model):
-    id = models.AutoField(primary_key=True)
     city = models.CharField(max_length=200)
     hotel_image = models.ImageField(null=True, upload_to="img/")
     hotel_name = models.CharField(max_length=200)
@@ -38,21 +35,29 @@ class Hotels(models.Model):
         return self.hotel_name
 
 
-# class BookFlight(models.Model):
-#     username_id = models.ForeignKey(User, on_delete=models.CASCADE)
-#     flight = models.CharField(max_length=10)
-#     date = models.CharField(max_length=20)
-#     seat = models.IntegerField(default=1)
-
-#     def __str__(self):
-#         return self.date
+class BookFlight(models.Model):
+    username_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    flight_num = models.CharField(max_length=10)
+    date = models.DateField()
+    seat = models.IntegerField(default=1)
 
 
-# class BookHotel(models.Model):
-#     username_id = models.ForeignKey(User, on_delete=models.CASCADE)
-#     hotel_name = models.CharField(max_length=10)
-#     date = models.CharField(max_length=20)
-#     room = models.IntegerField(default=1)
+    def __str__(self):
+        return self.date
 
-#     def __str__(self):
-#         return self.date
+
+class BookHotel(models.Model):
+    username_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    hotel_name = models.CharField(max_length=10)
+    date = models.DateField()
+    room = models.IntegerField(default=1)
+
+    city = models.CharField(max_length=200)
+    hotel_image = models.ImageField(null=True, upload_to="img/")
+    hotel_address = models.CharField(max_length=500)
+    hotel_price = models.IntegerField(null=True)
+    hotel_rating = models.IntegerField(null=True)
+    hotel_des = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.date

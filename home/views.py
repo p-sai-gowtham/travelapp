@@ -1,140 +1,112 @@
+import re
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Flights, Hotels
+from .models import Flights, Hotels, BookFlight, BookHotel
 from django.http import HttpResponse
 
-
 # Create your views here.
-
-
 def home(request):
+    print(request.user)
     return render(request, "home/index.html")
 
 
 @login_required
-def hotel(request):
-    return render(request, 'home/hotels.html')
-
-@login_required
-def HotelView(request):
+def Hotel(request):
     if request.method == "POST":
-        city = request.POSt.get("city")
-        date = request.POST.get("date")
-        rooms = request.POST.get("date")
-        hotels = Hotels.objects.filter(city__contains=city).filter(rooms__gte=rooms)
-        d = {"date": date}
+        city = request.POST.get("city").strip()
+        fdate = request.POST.get("fdate")
+        tdate = request.POST.get("tdate")
+        rooms = int(request.POST.get("rooms").strip())
+        hotels = Hotels.objects.all().filter(city=city).filter(rooms__gte=rooms)
+        d = {"fdate": fdate, "tdate": tdate}
         h = {"Hotels": hotels}
         r = {"rooms": rooms}
-        response = {**h, **d, **r}
-        # return render(request, "hotels.html", response)
-        return HttpResponse(response)
+        response = {**h, **d, **r, "Page": "Hotels"}
+        print(hotels)
+        return render(request, "home/hotels.html", response)
     else:
         return redirect("/")
 
 
 @login_required
-def FlightView(request):
+def Flight(request):
     if request.method == "POST":
-        source = request.POST.get("source").upper()
-        destination = request.POST.get("destination").upper()
+        source = request.POST.get("source").upper().strip()
+        destination = request.POST.get("destination").upper().strip()
         date = request.POST.get("date")
-        seats = request.POST.get("seats")
-        flights = Flights.objects.filter(source=source).filter(destination=destination).filter(seats__gte=seats)
+        seats = int(request.POST.get("seats").strip())
+        flights = (
+            Flights.objects.all().filter(source=source)
+            .filter(destination=destination)
+            .filter(seats__gte=seats)
+        )
         d = {"date": date}
         f = {"Flights": flights}
         s = {"seats": seats}
-        response = {**f, **d, **s}
-        # return render(request, "flights.html", response)
-        return HttpResponse(response)
+        response = {**f, **d, **s, "Page": "Flights"}
+        return render(request, "home/flights.html", response)
     else:
-        return redirect('/')
+        return redirect("/")
 
-# @login_required
-# def Flightbook(request, flight_num=None, date=None):
-#     cs = 0
-#     c = None
-#     price = 0
-#     form = SeatForm(request.POST)
-#     if request.method == "POST":
-#         if form.is_valid():
-#             flight = Flights.objects.filter(flight_num=flight_num)
-#             seats = form.cleaned_data["seats"]
-#             # d1=datetime.datetime.strptime(date, "%Y-%m-%d").date()
-#             for i in flight:
-#                 c = BookFlight.objects.filter(flight=i.flight_num).filter(date=date)
-#                 price = seats * i.eprice
-#                 seatrem = i.seats
-#             for j in c:
-#                 cs = cs + j.seat
-#             seatrem = seatrem - cs
-#             if (seatrem - seats) > 0:
-#                 avail = "available"
-#             else:
-#                 avail = "unavailable"
-#             a = {"availability": avail}
-#             p = {"price": price}
-#             sb = {"seatsreq": seats}
-#             s = {"seatrem": seatrem}
-#             b = {"flight": flight}
-#             f = {"form": form}
-#             d = {"date": date}
-#             response = {**b, **d, **f, **s, **a, **sb, **p}
-#             print(s)
-#             return render(request, "bookflight.html", response)
-#         else:
-#             return render(request, "bookflight.html", {"form": form})
-#     else:
-#         return render(request, "bookflight.html", {"form": form})
+@login_required
+def Flightbook(request):
+    if request.method == "POST":
+        flight = request.GET.get("flight")
+        date = request.GET.get("date")
+        seats = int(request.GET.get("seats"))
+        user = request.user
+        flights = Flights.objects.all().filter(flight_num=flight)
+        bflight = BookFlight.objects.all().filter(flight_num=flight).filter(date=date)
+        booked_seats = 0
+        for i in bflight:
+            booked_seats += i.seat
+        available_seats = flights[0].seats - booked_seats
+        if available_seats >= seats:
+            b = BookFlight(username_id=user, flight_num=flight, date=date, seat=seats)
+            b.save()
+            messages.success(request, "Booked")
+            return redirect("/home")
+        else:
+            messages.error(request, "Booking failed")
+            return redirect("/home")
+    else:
+        user = request.user
+        bflight = BookFlight.objects.all().filter(username_id=user)
+        flights = []
+        for i in bflight:
+            f = Flights.objects.all().filter(flight_num=i.flight_num)
+            flights.append(f[0])
+        response = {"Flights": flights, "Page": "Booked Flights"}
+        return render(request, "home/flightbook.html", response)
 
-
-# @login_required
-# def FlightSubmit(request, flight_num=None, date=None, seat=None):
-#     user = request.user
-#     b = BookFlight(username_id=user, flight=flight_num, date=date, seat=seat)
-#     b.save()
-#     return redirect("dashboard")
-
-
-# @login_required
-# def Hotelbook(request, hotel=None, date=None):
-#     cs = 0
-#     c = None
-#     price = 0
-#     form = RoomForm(request.POST)
-#     if request.method == "POST":
-#         if form.is_valid():
-#             room = form.cleaned_data["rooms"]
-#             hotel = Hotels.objects.filter(hotel_name=hotel)
-#             # d1=datetime.datetime.strptime(date, "%Y-%m-%d").date()
-#             for i in hotel:
-#                 c1 = BookHotel.objects.filter(hotel_name=i.hotel_name).filter(date=date)
-#                 price = room * i.hotel_price
-#                 roomrem = i.rooms
-#             for j in c1:
-#                 cs = cs + j.room
-#             roomrem = roomrem - cs
-#             if (roomrem - room) > 0:
-#                 avail = "available"
-#             else:
-#                 avail = "unavailable"
-#             a = {"availability": avail}
-#             p = {"price": price}
-#             rb = {"roomreq": room}
-#             r = {"roomrem": roomrem}
-#             b = {"hotel": hotel}
-#             f = {"form": form}
-#             d = {"date": date}
-#             response = {**b, **d, **a, **p, **rb, **f, **r}
-#             return render(request, "bookhotel.html", response)
-#         else:
-#             return render(request, "bookhotel.html", {"form": form})
-#     else:
-#         return render(request, "bookflight.html", {"form": form})
-
-
-# @login_required
-# def HotelSubmit(request, hotel=None, date=None, room=None):
-#     user = request.user
-#     b = BookHotel(username_id=user, hotel_name=hotel, date=date, room=room)
-#     b.save()
-#     return redirect("dashboard")
+@login_required
+def Hotelbook(request):
+    if request.method == "POST":
+        hotel = request.GET.get("hotel")
+        date = request.GET.get("date")
+        rooms = int(request.GET.get("rooms"))
+        user = request.user
+        hotels = Hotels.objects.all().filter(hotel_name=hotel)
+        bhotel = BookHotel.objects.all().filter(hotel_name=hotel).filter(date=date)
+        booked_rooms = 0
+        for i in bhotel:
+            booked_rooms += i.room
+        available_rooms = hotels[0].rooms - booked_rooms
+        if available_rooms >= rooms:
+            b = BookHotel(username_id=user, hotel_name=hotel, date=date, room=rooms)
+            b.save()
+            messages.success(request, "Booked")
+            return redirect("/home")
+        else:
+            messages.error(request, "Booking failed")
+            return redirect("/home")
+    else:
+        user = request.user
+        bhotel = BookHotel.objects.all().filter(username_id=user)
+        hotels = []
+        for i in bhotel:
+            h = Hotels.objects.all().filter(hotel_name=i.hotel_name)
+            hotels.append(h[0])
+        response = {"Hotels": hotels, "Page": "Booked Hotels"}
+        return render(request, "home/hotelbook.html", response)

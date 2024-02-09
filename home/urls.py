@@ -7,7 +7,8 @@ app_name = "app"
 
 urlpatterns = [
     path("", views.home),
-    path("hotel_s/", views.HotelView),
-    path("flights_s/", views.FlightView),
-    path('hotel',views.hotel),
+    path("hotel_s/", views.Hotel),
+    path("flights_s/", views.Flight),
+    path("flightbook/", views.Flightbook),
+    path("hotelbook/", views.Hotelbook),
 ]

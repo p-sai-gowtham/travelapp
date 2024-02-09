@@ -61,7 +61,8 @@
                 role="tabpanel"
                 aria-labelledby="nav-home-tab"
               >
-                <form class="row g-4 mt-5">
+                <form class="row g-4 mt-5" action="/hotel_s/" method="post">
+                  {% csrf_token %}
                   <div class="col-sm-6 col-md-6 col-xl-5">
                     <div class="input-group-icon">
                       <label
@@ -73,6 +74,7 @@
                         class="form-control input-box form-voyage-control"
                         id="inputAddress1"
                         type="text"
+                        name="city"
                         placeholder="From where"
                       /><span
                         class="nav-link-icon text-800 fs--1 input-box-icon"
@@ -91,6 +93,7 @@
                         class="form-control input-box form-voyage-control"
                         id="inputAddress2"
                         type="text"
+                        name="rooms"
                         placeholder="To where"
                       /><span
                         class="nav-link-icon text-800 fs--1 input-box-icon"
@@ -104,6 +107,7 @@
                         class="form-control input-box form-voyage-control"
                         id="inputdateOne"
                         type="date"
+                        name="fdate"
                       /><span
                         class="nav-link-icon text-800 fs--1 input-box-icon"
                         ><i class="fas fa-calendar"></i
@@ -116,6 +120,7 @@
                         class="form-control input-box form-voyage-control"
                         id="inputDateTwo"
                         type="date"
+                        name="tdate"
                       /><span
                         class="nav-link-icon text-800 fs--1 input-box-icon"
                         ><i class="fas fa-calendar"></i
