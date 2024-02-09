@@ -83,33 +83,34 @@
                 <div class="rooms col col-2">
                     <img src="https://res.cloudinary.com/start-ng/image/upload/v1591638448/Rectangle_42_nastdj.png"
                         alt="" class="rooms-img">
-                    <h3 class="room-title"> {{ hotel.hotel_name }} </h3>
-                    <p class="room-text">{{ hotel.des }}</p>
+                    <h3 class="room-title"> {{ flight.source }} </h3>
+                    <p class="room-text">{{ flight.destination }}</p>
                     <div>
                         <div class="details-container">
                             <img src="assets/img/check-square.svg" alt="tick" class="list-icon">
-                            <p class="list-text">2 Persons</p>
+                            <p class="list-text"> <b>Departure</b> <br> {{ flight.dept.time }} </p>
                         </div>
                         <div class="details-container">
                             <img src="assets/img/check-square.svg" alt="tick" class="list-icon">
-                            <p class="list-text">1 Kingsize bed</p>
+                            <p class="list-text"> <b>Destination</b> <br> {{ flight.dest.time }} </p>
                         </div>
                         <div class="details-container">
                             <img src="assets/img/check-square.svg" alt="tick" class="list-icon">
-                            <p class="list-text">{{ hotel.rooms }} available</p>
+                            <p class="list-text">{{ flight.seats }} available</p>
                         </div>
                         <div class="details-container">
                             <img src="assets/img/loc.png" alt="tick" class="list-icon">
                             <p class="list-text">{{ flight.city }} </p>
                         </div>
                     </div>
-                    <p class="amount-text">{{ hotel.hotel_price }}</p>
+                    <p class="amount-text">{{ flight.eprice }}</p>
 
 
-                    <p class="add-text">{{ hotel.hotel_address }}</p>
+                    <!-- <p class="add-text">{{ hotel.hotel_address }}</p> -->
 
                     <div class="buttons-container">
-                        <a href="#" class="btn btn-fill">View More</a>
+                        <a href="#" class="btn btn-fill">{{ flight.company }}</a>
+                        <a href="#" class="btn btn-fill">{{ flight.journey_time }}</a>
                         <a href="#" class="btn btn-ghost">Book Now</a>
                     </div>
                 </div>
