@@ -164,6 +164,7 @@ margin: 0.5rem auto 1rem;
 .btn-fill:active {
   background-color: #c9a633;
   border: 1px solid #c9a633;
+  cursor: context-menu;
 }
 
 .btn-ghost {
@@ -212,7 +213,9 @@ margin: 0.5rem auto 1rem;
   width: 90px;
   margin: 15px auto 0;
 }
-
+.add-text{
+  font-size: 16px;
+}
 .room-title {
   font-size: 90%;
   font-weight: 600;
