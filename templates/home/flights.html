@@ -79,7 +79,7 @@
             </div>
             <div class="row center-lg">
 
-                {% for hotel in Hotels %}
+                {% for flight in Flights %}
                 <div class="rooms col col-2">
                     <img src="https://res.cloudinary.com/start-ng/image/upload/v1591638448/Rectangle_42_nastdj.png"
                         alt="" class="rooms-img">
@@ -100,7 +100,7 @@
                         </div>
                         <div class="details-container">
                             <img src="assets/img/loc.png" alt="tick" class="list-icon">
-                            <p class="list-text">{{ hotel.city }} </p>
+                            <p class="list-text">{{ flight.city }} </p>
                         </div>
                     </div>
                     <p class="amount-text">{{ hotel.hotel_price }}</p>
@@ -109,7 +109,7 @@
                     <p class="add-text">{{ hotel.hotel_address }}</p>
 
                     <div class="buttons-container">
-                        <a href="#" class="btn btn-fill">{{ hotel.hotel_rating }}</a>
+                        <a href="#" class="btn btn-fill">View More</a>
                         <a href="#" class="btn btn-ghost">Book Now</a>
                     </div>
                 </div>
@@ -124,5 +124,5 @@
 
 
 {% block js %}
-<script src={% static "assets/js/hotels.js" %}></script>
+<!-- <script src={% static "assets/js/hotels.js" %}></script> -->
 {% endblock %}
