@@ -78,10 +78,12 @@
               </div> -->
           </div>
           <div class="row center-lg">
+
+            {% for hotel in hotels %}
               <div class="rooms col col-2">
                   <img src="https://res.cloudinary.com/start-ng/image/upload/v1591638448/Rectangle_42_nastdj.png"
                       alt="" class="rooms-img">
-                  <h3 class="room-title">Standard Economic Single</h3>
+                  <h3 class="room-title"> {{ hotel.hotel_nameyy }} </h3>
                   <p class="room-text">Designed specifically for Practicality and <br> comfort</p>
                   <div>
                       <div class="details-container">
@@ -99,72 +101,11 @@
                       <a href="#" class="btn btn-fill">Book Now</a>
                   </div>
               </div>
-              <div class="rooms col col-2">
-                  <img src="https://res.cloudinary.com/start-ng/image/upload/v1591638449/Rectangle_43_d9eepu.png"
-                      alt="" class="rooms-img">
-                  <h3 class="room-title">Standard Economic Single</h3>
-                  <p class="room-text">Designed specifically for Practicality and <br> comfort</p>
-                  <div>
-                      <div class="details-container">
-                          <img src="assets/img/check-square.svg" alt="tick" class="list-icon">
-                          <p class="list-text">2 Persons</p>
-                      </div>
-                      <div class="details-container">
-                          <img src="assets/img/bed.png" alt="tick" class="list-icon">
-                          <p class="list-text">1 Kingsize bed</p>
-                      </div>
-                  </div>
-                  <p class="amount-text">NGN35,000 Per Night</p>
-                  <div class="buttons-container">
-                      <a href="#" class="btn btn-ghost">View More</a>
-                      <a href="#" class="btn btn-fill">Book Now</a>
-                  </div>
-              </div>
-              <div class="rooms col col-2">
-                  <img src="https://res.cloudinary.com/start-ng/image/upload/v1591638448/Rectangle_44_anerdv.png"
-                      alt="" class="rooms-img">
-                  <h3 class="room-title">Standard Economic Single</h3>
-                  <p class="room-text">Designed specifically for Practicality and <br> comfort</p>
-                  <div>
-                      <div class="details-container">
-                          <img src="assets/img/check-square.svg" alt="tick" class="list-icon">
-                          <p class="list-text">2 Persons</p>
-                      </div>
-                      <div class="details-container">
-                          <img src="assets/img/bed.png" alt="tick" class="list-icon">
-                          <p class="list-text">1 Kingsize bed</p>
-                      </div>
-                  </div>
-                  <p class="amount-text">NGN45,000 Per Night</p>
-                  <div class="buttons-container">
-                      <a href="#" class="btn btn-ghost">View More</a>
-                      <a href="#" class="btn btn-fill">Book Now</a>
-                  </div>
-              </div>
-              <div class="rooms col col-2">
-                  <img src="https://res.cloudinary.com/start-ng/image/upload/v1591638449/Rectangle_45_mtl458.png"
-                      alt="" class="rooms-img">
-                  <h3 class="room-title">Standard Economic Single</h3>
-                  <p class="room-text">Designed specifically for Practicality and <br> comfort</p>
-                  <div>
-                      <div class="details-container">
-                          <img src="assets/img/check-square.svg" alt="tick" class="list-icon">
-                          <p class="list-text">2 Persons</p>
-                      </div>
-                      <div class="details-container">
-                          <img src="assets/img/bed.png" alt="tick" class="list-icon">
-                          <p class="list-text">1 Kingsize bed</p>
-                      </div>
-                  </div>
-                  <p class="amount-text">NGN50,000 Per Night</p>
-                  <div class="buttons-container">
-                      <a href="#" class="btn btn-ghost">View More</a>
-                      <a href="#" class="btn btn-fill">Book Now</a>
-                  </div>
-              </div>
+
+            {% endfor %}
+
           </div>
       </section>
-
   </div>
 </main>
 {% endblock %}
