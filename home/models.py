@@ -4,9 +4,10 @@ from django.conf import settings
 
 # Create your models here.
 
+
 class Flights(models.Model):
-    source = models.CharField(max_length=200)
     date = models.DateField()
+    source = models.CharField(max_length=200)
     destination = models.CharField(max_length=200)
     flight_name = models.CharField(max_length=200)
     flight_num = models.CharField(max_length=10)
@@ -41,7 +42,6 @@ class BookFlight(models.Model):
     date = models.DateField()
     seat = models.IntegerField(default=1)
 
-
     def __str__(self):
         return self.date
 
@@ -51,13 +51,6 @@ class BookHotel(models.Model):
     hotel_name = models.CharField(max_length=10)
     date = models.DateField()
     room = models.IntegerField(default=1)
-
-    city = models.CharField(max_length=200)
-    hotel_image = models.ImageField(null=True, upload_to="img/")
-    hotel_address = models.CharField(max_length=500)
-    hotel_price = models.IntegerField(null=True)
-    hotel_rating = models.IntegerField(null=True)
-    hotel_des = models.CharField(max_length=500)
 
     def __str__(self):
         return self.date

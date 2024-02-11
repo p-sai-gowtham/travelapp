@@ -1,6 +1,17 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
+{% for message in messages %}
+      <div class="container-fluid p-0 m-0">
+        <div class="alert {{ message.tags }} alert-dismissible m-0 text-center" role="alert" >
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="True">&times;</span>
+          </button>
+         {{ message }}
+    
+      
+        </div>
+      </div>
+      {% endfor %}
 
 <section class="mt-7 py-0">
   <div
@@ -17,7 +28,6 @@
         <div class="pt-5">
           <nav>
             <div class="nav nav-tabs voyage-tabs" id="nav-tab" role="tablist">
-            
               <button
                 class="active nav-link"
                 id="nav-profile-tab"
@@ -44,58 +54,83 @@
               </button>
             </div>
             <div class="tab-content" id="nav-tabContent">
-              
               <div
                 class="tab-pane active"
                 id="nav-profile"
                 role="tabpanel"
                 aria-labelledby="nav-profile-tab"
               >
-                <form class="row g-4 mt-5">
+                <form class="row g-4 mt-5" action="/flights/" method="post">
+                  {% csrf_token %}
                   <div class="col-6">
                     <div class="input-group-icon">
                       <label class="form-label" for="inputSource">Source</label>
-                      <select class="form-select form-voyage-select input-box" id="inputSource" placeholder >
-                        <option value="vizag">---</option>
+                      <select
+                        class="form-select form-voyage-select input-box"
+                        id="inputSource"
+                        name="source"
+                        placeholder
+                      >
+                        <option value="---">---</option>
                         <option value="vizag">Vizag</option>
                         <option value="hyderabad">Hyderabad</option>
                         <option value="bengaluru">Bengaluru</option>
                         <option value="mumbai">Mumbai</option>
                       </select>
-                    </div>
-                  </div>
-                  
-                  <div class="col-6">
-                    <div class="input-group-icon">
-                      <label class="form-label" for="inputDestination">Destination</label>
-                      <select class="form-select form-voyage-select input-box" id="inputDestination">
-                        <option value="vizag">---</option>
-                        <option value="vizag">Vizag</option>
-                        <option value="hyderabad">Hyderabad</option>
-                        <option value="bengaluru">Bengaluru</option>
-                        <option value="mumbai">Mumbai</option>
-                      </select>
-                    </div>
-                  </div>
-                  
-                  <div class="col-6">
-                    <div class="input-group-icon">
-                      <label class="form-label" for="inputJourneyDate">Journey Date</label>
-                      <input
-                        class="form-control input-box form-voyage-control"
-                        id="inputDateThree"
-                        type="date"
-                      />
                     </div>
                   </div>
 
                   <div class="col-6">
                     <div class="input-group-icon">
-                      <label class="form-label" for="inputPeopleTwo">No. of Seats</label>
-                      <input type="number" class="form-select form-voyage-select input-box" id="inputPeopleTwo" min="1" max="10">
+                      <label class="form-label" for="inputDestination"
+                        >Destination</label
+                      >
+                      <select
+                        class="form-select form-voyage-select input-box"
+                        id="inputDestination"
+                        name="destination"
+                      >
+                        <option value="vizag">---</option>
+                        <option value="vizag">Vizag</option>
+                        <option value="hyderabad">Hyderabad</option>
+                        <option value="bengaluru">Bengaluru</option>
+                        <option value="mumbai">Mumbai</option>
+                      </select>
+                    </div>
                   </div>
+
+                  <div class="col-6">
+                    <div class="input-group-icon">
+                      <label class="form-label" for="inputJourneyDate"
+                        >Journey Date</label
+                      >
+                      <input
+                        class="form-control input-box form-voyage-control"
+                        id="inputDateThree"
+                        type="date"
+                        name="date"
+                      />
+                    </div>
                   </div>
-              
+
+                  <div class="col-6">
+                    <label class="form-label" for="inputPeopleTwo"
+                      >No. of Seats</label
+                    >
+                    <div class="input-group-icon">
+                      <input
+                        class="form-control input-box form-voyage-control"
+                        id="inputPeopleTwo"
+                        type="text"
+                        name="seats"
+                        placeholder="From where"
+                      /><span
+                        class="nav-link-icon text-800 fs--1 input-box-icon"
+                        ><i class="fas fa-map-marker-alt"></i
+                      ></span>
+                    </div>
+                  </div>
+
                   <div class="col-12 d-grid mt-6">
                     <button class="btn btn-secondary" type="submit">
                       Search
@@ -109,7 +144,8 @@
                 role="tabpanel"
                 aria-labelledby="nav-contact-tab"
               >
-                <form class="row g-4 mt-5">
+                <form class="row g-4 mt-5" action="/hotels/" method="post">
+                  {% csrf_token %}
                   <div class="col-6">
                     <div class="input-group-icon">
                       <label class="form-label" for="inputFromDate">From</label>
@@ -117,11 +153,11 @@
                         class="form-control input-box form-voyage-control"
                         id="inputDateThree"
                         type="date"
+                        name="fdate"
                       />
                     </div>
                   </div>
 
-                 
                   <div class="col-6">
                     <div class="input-group-icon">
                       <label class="form-label" for="inputToDate">To</label>
@@ -129,14 +165,21 @@
                         class="form-control input-box form-voyage-control"
                         id="inputDateThree"
                         type="date"
+                        name="tdate"
                       />
                     </div>
                   </div>
 
                   <div class="col-6">
                     <div class="input-group-icon">
-                      <label class="form-label" for="inputLocation">Location</label>
-                      <select class="form-select form-voyage-select input-box" id="inputLocation">
+                      <label class="form-label" for="inputLocation"
+                        >Location</label
+                      >
+                      <select
+                        class="form-select form-voyage-select input-box"
+                        id="inputLocation"
+                        name="city"
+                      >
                         <option value="vizag">---</option>
                         <option value="vizag">Vizag</option>
                         <option value="hyderabad">Hyderabad</option>
@@ -148,9 +191,18 @@
 
                   <div class="col-6">
                     <div class="input-group-icon">
-                      <label class="form-label" for="inputPeopleTwo">No. of Rooms</label>
-                      <input type="number" class="form-select form-voyage-select input-box" id="inputPeopleTwo" min="1" max="3">
-                  </div>
+                      <label class="form-label" for="inputPeopleTwo"
+                        >No. of Rooms</label
+                      >
+                      <input
+                        type="number"
+                        class="form-select form-voyage-select input-box"
+                        id="inputPeopleTwo"
+                        name="rooms"
+                        min="1"
+                        max="3"
+                      />
+                    </div>
                   </div>
 
                   <div class="col-12 d-grid mt-6">
@@ -221,7 +273,6 @@
 <!-- <section> close ============================-->
 <!-- ============================================-->
 
-
 <section class="py-7 overflow-hidden" id="places">
   <div class="container bg-offcanvas-gray-right">
     <div class="row gx-2 mb-2">
@@ -237,9 +288,8 @@
                 />
                 <h2 class="mb-2 text-light">Popular places</h2>
                 <p>
-                  Enjoy the trips<br
-                    class="d-none d-lg-block"
-                  />where our visitors have more fun.
+                  Enjoy the trips<br class="d-none d-lg-block" />where our
+                  visitors have more fun.
                   <br class="d-none d-lg-block" />Properly arranged with low
                   costing.
                 </p>
@@ -261,7 +311,6 @@
           >
             <div class="mt-auto px-4 mb-1">
               <h3 class="fs-1 fs-md-2 text-white">Vizag</h3>
-
             </div>
           </div>
           <a class="stretched-link" href="#!"></a>
@@ -280,20 +329,16 @@
           >
             <div class="mt-auto px-4 mb-1">
               <h3 class="fs-1 fs-md-2 text-white">Bengaluru</h3>
-              
             </div>
           </div>
           <a class="stretched-link" href="#!"></a>
         </div>
       </div>
     </div>
-    
-              <div
-                class="card-img-overlay ps-0 d-flex flex-column justify-content-between bg-voyage-gradient"
-              >
-                
-      
-    </div>
+
+    <div
+      class="card-img-overlay ps-0 d-flex flex-column justify-content-between bg-voyage-gradient"
+    ></div>
   </div>
 </section>
 <section class="py-0 my-7">
@@ -790,20 +835,22 @@
 <!-- <section> close ============================-->
 <!-- ============================================-->
 
-
 <!-- ============================================-->
 
 <section class="py-0 overflow-hidden">
   <div class="container">
-      <div class="row">
-          <div class="col-12 text-center">
-              <img class="d-inline-block" src="assets/img/gallery/logo.png" width="30" alt="logo" />
-              <span class="fw-bold fs-5 text-primary ms-2">voyage</span>
-          </div>
+    <div class="row">
+      <div class="col-12 text-center">
+        <img
+          class="d-inline-block"
+          src="assets/img/gallery/logo.png"
+          width="30"
+          alt="logo"
+        />
+        <span class="fw-bold fs-5 text-primary ms-2">voyage</span>
       </div>
+    </div>
   </div>
 </section>
-
-
 
 {% endblock content %}

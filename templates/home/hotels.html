@@ -81,7 +81,7 @@
 
                 {% for hotel in Hotels %}
                 <div class="rooms col col-2">
-                    <img src="https://res.cloudinary.com/start-ng/image/upload/v1591638448/Rectangle_42_nastdj.png"
+                    <img width="50%" src="{{ hotel.hotel_image.url }}"
                         alt="" class="rooms-img">
                     <h3 class="room-title"> {{ hotel.hotel_name }} </h3>
                     <p class="room-text">{{ hotel.des }}</p>
@@ -110,6 +110,7 @@
 
                     <div class="buttons-container">
                         <a href="#" class="btn btn-fill">{{ hotel.hotel_rating }}</a>
+                        
                         <a href="#" class="btn btn-ghost">Book Now</a>
                     </div>
                 </div>
