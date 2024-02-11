@@ -26,7 +26,7 @@
         <div class="frow room-section-header-fcontainer">
           <div class="fcol fcol-3">
             <h4 class="room-section-header active-header" id="standard-room">
-              Standard Rooms
+              Standard Flights
             </h4>
           </div>
           <!-- <div class="fcol fcol-3">
@@ -40,12 +40,19 @@
           {% for flight in Flights %}
           <div class="rooms fcol fcol-2">
             <img
-              src="https://res.cloudinary.com/start-ng/image/upload/v1591638448/Rectangle_42_nastdj.png"
+              src="{% static 'assets/img/flights.webp'%}"
               alt=""
               class="rooms-img"
             />
+            
             <h3 class="room-title">{{ flight.source }}</h3>
-            <p class="room-text">{{ flight.destination }}</p>
+            <!-- <p class="room-text">DESTINATION {{ flight.destination }}</p> -->
+            <img
+                  src="{% static 'assets/img/icons/loc.png'%}"
+                  alt="tick"
+                  class="list-icon"
+                />
+                <p class="list-text">{{ flight.destination }}</p>
             <div>
               <div class="details-fcontainer">
                 <img
@@ -65,8 +72,8 @@
                   class="list-icon"
                 />
                 <p class="list-text">
-                  <b>Destination</b> <br />
-                  {{ flight.dest_time }}
+                  <b>Duration</b> <br />
+                  {{ flight.journey_time }}
                 </p>
               </div>
               <div class="details-fcontainer">
@@ -75,15 +82,26 @@
                   alt="tick"
                   class="list-icon"
                 />
-                <p class="list-text">{{ flight.seats }} available</p>
+                <p class="list-text">
+                  <b>Destination</b> <br />
+                  {{ flight.dest_time }}
+                </p>
               </div>
-              <div class="details-fcontainer">
+              <!-- <div class="details-fcontainer">
                 <img
+                  src="{% static 'assets/img/check-square.svg'%}"
+                  alt="tick"
+                  class="list-icon"
+                />
+                <p class="list-text">{{ flight.seats }} available</p>
+              </div> -->
+              <div class="details-fcontainer">
+                <!-- <img
                   src="{% static 'assets/img/icons/loc.png'%}"
                   alt="tick"
                   class="list-icon"
                 />
-                <p class="list-text">{{ flight.destination }}</p>
+                <p class="list-text">{{ flight.destination }}</p> -->
               </div>
             </div>
             <p class="amount-text">{{ flight.eprice }}</p>
