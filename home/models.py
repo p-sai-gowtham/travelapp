@@ -37,7 +37,7 @@ class Hotels(models.Model):
 
 
 class BookFlight(models.Model):
-    username_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    username_id = models.EmailField(max_length=500)
     flight_num = models.CharField(max_length=10)
     date = models.DateField()
     seat = models.IntegerField(default=1)
@@ -47,10 +47,11 @@ class BookFlight(models.Model):
 
 
 class BookHotel(models.Model):
-    username_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    username_id = models.EmailField(max_length=500)
     hotel_name = models.CharField(max_length=10)
-    date = models.DateField()
+    fdate = models.DateField()
+    tdate = models.DateField()
     room = models.IntegerField(default=1)
 
     def __str__(self):
-        return self.date
+        return self.hotel_name

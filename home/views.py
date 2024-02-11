@@ -23,7 +23,7 @@ def hotel(request):
             bhotel = (
                 BookHotel.objects.all()
                 .filter(hotel_name=i.hotel_name)
-                .filter(date__range=[fdate, tdate])
+                .filter(fdate=fdate).filter(tdate=tdate)
             )
             booked_rooms = 0
             for j in bhotel:
@@ -51,18 +51,6 @@ def Flight(request):
         destination = request.POST.get("destination").strip()
         date = request.POST.get("date")
         seats = int(request.POST.get("seats").strip())
-        print(source, destination, date, seats)
-        print(source, destination, date, seats)
-        print(source, destination, date, seats)
-        print(source, destination, date, seats)
-        print(source, destination, date, seats)
-        print(source, destination, date, seats)
-        print(source, destination, date, seats)
-        print(source, destination, date, seats)
-        print(source, destination, date, seats)
-        print(source, destination, date, seats)
-        print(source, destination, date, seats)
-        print(source, destination, date, seats)
         flights = (
             Flights.objects.all().filter(source=source).filter(destination=destination)
         )
@@ -95,7 +83,7 @@ def Flight(request):
 @login_required
 def Bookedflights(request):
     user = request.user
-    flights = Flights.objects.all().filter(username_id=user)
+    flights = BookFlight.objects.all().filter(username_id=user)
     response = {"Flights": flights, "Page": "Booked Flights"}
     return render(request, "home/flights.html", response)
 
@@ -103,7 +91,8 @@ def Bookedflights(request):
 @login_required
 def Bookedhotels(request):
     user = request.user
-    hotels = Hotels.objects.all().filter(username_id=user)
+    print(user)
+    hotels = BookHotel.objects.all().filter(username_id=user)
     response = {"Hotels": hotels, "Page": "Booked Hotels"}
     return render(request, "home/hotels.html", response)
 
@@ -132,21 +121,22 @@ def Flightbook(request):
 
 def Hotelbook(request):
     if request.method == "POST":
-        hotel = request.GET.get("hotel")
-        date = request.GET.get("date")
-        rooms = int(request.GET.get("rooms"))
+        hotel = request.POST.get("hotel")
+        fdate = request.POST.get("fdate")
+        tdate = request.POST.get("tdate")
+        rooms = int(request.POST.get("rooms"))
         user = request.user
         hotels = Hotels.objects.all().filter(hotel_name=hotel)
-        bhotel = BookHotel.objects.all().filter(hotel_name=hotel).filter(date=date)
+        bhotel = BookHotel.objects.all().filter(hotel_name=hotel).filter(fdate=fdate).filter(tdate=tdate)
         booked_rooms = 0
         for i in bhotel:
             booked_rooms += i.room
         available_rooms = hotels[0].rooms - booked_rooms
         if available_rooms >= rooms:
-            b = BookHotel(username_id=user, hotel_name=hotel, date=date, room=rooms)
+            b = BookHotel(username_id=user, hotel_name=hotel, fdate=fdate, tdate=tdate,room=rooms)
             b.save()
             messages.success(request, "Booked")
-            return redirect("/home")
+            return redirect("/bookedhotels")
         else:
             messages.error(request, "Booking failed")
-            return redirect("/home")
+            return redirect("/")
