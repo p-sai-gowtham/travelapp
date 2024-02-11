@@ -43,7 +43,7 @@ class BookFlight(models.Model):
     seat = models.IntegerField(default=1)
 
     def __str__(self):
-        return self.date
+        return self.flight_num
 
 
 class BookHotel(models.Model):

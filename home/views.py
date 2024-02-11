@@ -5,7 +5,6 @@ from .models import Flights, Hotels, BookFlight, BookHotel
 
 # Create your views here.
 
-
 @login_required
 def home(request):
     return render(request, "home/index.html")
@@ -13,7 +12,7 @@ def home(request):
 
 def hotel(request):
     if request.method == "POST":
-        city = request.POST.get("city").strip()
+        city = request.POST.get("city").upper().strip()
         fdate = request.POST.get("fdate")
         tdate = request.POST.get("tdate")
         rooms = int(request.POST.get("rooms").strip())
@@ -33,7 +32,7 @@ def hotel(request):
                 available_hotels.append(i)
         if len(available_hotels) == 0:
             messages.error(request, "No hotels available")
-            return redirect("/home")
+            return redirect("/")
         else:
             response = {
                 "Hotels": available_hotels,
@@ -47,8 +46,8 @@ def hotel(request):
 
 def Flight(request):
     if request.method == "POST":
-        source = request.POST.get("source").strip()
-        destination = request.POST.get("destination").strip()
+        source = request.POST.get("source").upper().strip()
+        destination = request.POST.get("destination").upper().strip()
         date = request.POST.get("date")
         seats = int(request.POST.get("seats").strip())
         flights = (
@@ -99,9 +98,9 @@ def Bookedhotels(request):
 
 def Flightbook(request):
     if request.method == "POST":
-        flight = request.GET.get("flight")
-        date = request.GET.get("date")
-        seats = int(request.GET.get("seats"))
+        flight = request.POST.get("flight")
+        date = request.POST.get("date")
+        seats = int(request.POST.get("seats"))
         user = request.user
         flights = Flights.objects.all().filter(flight_num=flight)
         bflight = BookFlight.objects.all().filter(flight_num=flight).filter(date=date)

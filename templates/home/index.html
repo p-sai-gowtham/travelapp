@@ -1,5 +1,13 @@
 {% extends 'base.html' %} {% block content %}
 
+
+
+<section class="mt-7 py-0">
+  <div
+    class="bg-holder w-50 bg-right d-none d-lg-block"
+    style="background-image: url(assets/img/gallery/hero-section-1.png)"
+  ></div>
+  <!--/.bg-holder-->
 {% for message in messages %}
       <div class="container-fluid p-0 m-0">
         <div class="alert {{ message.tags }} alert-dismissible m-0 text-center" role="alert" >
@@ -12,14 +20,6 @@
         </div>
       </div>
       {% endfor %}
-
-<section class="mt-7 py-0">
-  <div
-    class="bg-holder w-50 bg-right d-none d-lg-block"
-    style="background-image: url(assets/img/gallery/hero-section-1.png)"
-  ></div>
-  <!--/.bg-holder-->
-
   <div class="container">
     <div class="row">
       <div class="col-lg-6 py-5 py-xl-5 py-xxl-7">
