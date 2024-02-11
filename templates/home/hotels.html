@@ -1,21 +1,17 @@
+{% extends 'base.html' %}
 {% load static %}
 {% block css %}
-<link href={% static "assets/css/hotels.css" %} rel="stylesheet" />
+<link href="{% static 'assets/css/hotels.css' %}" rel="stylesheet" />
 {% endblock %}
 
 {% block content %}
 <main>
-    {% for message in messages %}
-      <div class="container-fluid p-0 m-0">
-        <div class="alert {{ message.tags }} alert-dismissible m-0 text-center" role="alert" >
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="True">&times;</span>
-          </button>
-         {{ message }}
-    
-      
-        </div>
-      </div>
+   {% for message in messages %}
+
+         <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
       {% endfor %}
     <div class="container">
 
@@ -33,16 +29,16 @@
         <section class="special-offers">
             <div class="row center-lg">
                 <div class="col image-col right-marg">
-                    <img src="assets/img/hotel-1.webp" alt="room-image" class="small-image">
-                    <img src="assets/img/hotel-2.webp" alt="room-image" class="small-image">
-                    <img src="assets/img/hotel-3.webp" alt="room-image" class="small-image">
+                    <img src="{% static 'assets/img/hotel-1.webp'%}" alt="room-image" class="small-image">
+                    <img src="{% static 'assets/img/hotel-2.webp'%}" alt="room-image" class="small-image">
+                    <img src="{% static 'assets/img/hotel-3.webp'%}" alt="room-image" class="small-image">
                     <div class="side-by-side-container">
                         <div class="large-image-container">
-                            <img src="assets/img/hotel-4-large.webp" alt="room-image-large" class="large-image">
+                            <img src="{% static 'assets/img/hotel-4-large.webp'%}" alt="room-image-large" class="large-image">
                         </div>
                         <section class="stacked-image-container">
-                            <div><img src="assets/img/hotel-5.webp" alt="room-image" class="small-image"></div>
-                            <div><img src="assets/img/hotel-6.webp" alt="room-image" class="small-image"></div>
+                            <div><img src="{% static 'assets/img/hotel-5.webp'%}" alt="room-image" class="small-image"></div>
+                            <div><img src="{% static 'assets/img/hotel-6.webp'%}" alt="room-image" class="small-image"></div>
                         </section>
                     </div>
                 </div>
@@ -54,19 +50,19 @@
                     <ul class="offers-list">
                         <li>
                             <div>
-                                <img src="assets/img/check-square.svg" alt="tick" class="list-icon">
+                                <img src="{% static 'assets/img/check-square.svg'%}" alt="tick" class="list-icon">
                                 <p class="list-text">Free Wi-Fi Service</p>
                             </div>
                         </li>
                         <li>
                             <div>
-                                <img src="assets/img/check-square.svg" alt="tick" class="list-icon">
+                                <img src="{% static 'assets/img/check-square.svg'%}" alt="tick" class="list-icon">
                                 <p class="list-text">Best Rate Guarantee</p>
                             </div>
                         </li>
                         <li>
                             <div>
-                                <img src="assets/img/check-square.svg" alt="tick" class="list-icon">
+                                <img src="{% static 'assets/img/check-square.svg'%}" alt="tick" class="list-icon">
                                 <p class="list-text">Free DSTV Access</p>
                             </div>
                         </li>
@@ -99,19 +95,19 @@
                     <p class="room-text">{{ hotel.des }}</p>
                     <div>
                         <div class="details-container">
-                            <img src="assets/img/check-square.svg" alt="tick" class="list-icon">
+                            <img src="{% static 'assets/img/check-square.svg'%}" alt="tick" class="list-icon">
                             <p class="list-text">2 Persons</p>
                         </div>
                         <div class="details-container">
-                            <img src="assets/img/check-square.svg" alt="tick" class="list-icon">
+                            <img src="{% static 'assets/img/check-square.svg'%}" alt="tick" class="list-icon">
                             <p class="list-text">1 Kingsize bed</p>
                         </div>
                         <div class="details-container">
-                            <img src="assets/img/check-square.svg" alt="tick" class="list-icon">
+                            <img src="{% static 'assets/img/check-square.svg'%}" alt="tick" class="list-icon">
                             <p class="list-text">{{ hotel.rooms }} available</p>
                         </div>
                         <div class="details-container">
-                            <img src="assets/img/loc.png" alt="tick" class="list-icon">
+                            <img src="{% static 'assets/img/loc.png'%}" alt="tick" class="list-icon">
                             <p class="list-text">{{ hotel.city }} </p>
                         </div>
                     </div>

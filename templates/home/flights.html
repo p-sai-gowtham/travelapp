@@ -1,189 +1,127 @@
-{% load static %} {% block css %} 
-<link href={% static "assets/css/hotels.css" %} rel="stylesheet" /> {% endblock %} {% block content %}
-<main>
+{% extends 'base.html' %} {% load static %} {% block css %}
+<link href="{% static 'assets/css/flights.css' %}" rel="stylesheet" />
+{%endblock%} {% block content %}
 
+<section class="mt-7 py-0">
+  <main>
     {% for message in messages %}
-      <div class="container-fluid p-0 m-0">
-        <div class="alert {{ message.tags }} alert-dismissible m-0 text-center" role="alert" >
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="True">&times;</span>
-          </button>
-         {{ message }}
-    
-      
-        </div>
-      </div>
-      {% endfor %}
-  <div class="container">
-    <!-- Top Text -->
-    <div class="page-header-container">
-      <h2 class="page-header">Star Hotel Rooms</h2>
-      <hr />
-      <p class="page-sub-header">
-        Get the most of our hotel specials. Enjoy the modern <br />
-        comfort and panoramic view
-      </p>
+
+    <div
+      class="alert {{ message.tags }} alert-dismissible fade show"
+      role="alert"
+    >
+      {{ message }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
     </div>
 
-
-    <!-- Special offers section -->
-    <section class="special-offers">
-      <div class="row center-lg">
-        <div class="col image-col right-marg">
-          <img src="{% static "assets/img/hotel-1.webp" %}" alt="room-image"
-          class="small-image"> <img src="{% static "assets/img/hotel-2.webp" %}"
-          alt="room-image" class="small-image"> <img src="{% static
-          "assets/img/hotel-3.webp" %}" alt="room-image" class="small-image">
-          <div class="side-by-side-container">
-            <div class="large-image-container">
-              <img src="{% static "assets/img/hotel-4.webp" %}"
-              alt="room-image-large" class="large-image">
-            </div>
-            <section class="stacked-image-container">
-              <div>
-                <img src="{% static "assets/img/hotel-5.webp" %}"
-                alt="room-image" class="small-image">
-              </div>
-              <div>
-                <img src="{% static "assets/img/hotel-6.webp" %}"
-                alt="room-image" class="small-image">
-              </div>
-            </section>
+    {% endfor %}
+    <div class="fcontainer">
+      <!-- Rooms -->
+      <section class="rooms-section">
+        <div class="frow room-section-header-fcontainer">
+          <div class="fcol fcol-3">
+            <h4 class="room-section-header active-header" id="standard-room">
+              Standard Rooms
+            </h4>
           </div>
-        </div>
-        <div class="col">
-          <h3 class="offers-title">Special Offers</h3>
-          <p class="offers-sub-title">
-            Get 10% discount off this city view- standard room. <br />
-            Offers valid till june 31st 2020
-          </p>
-          <ul class="offers-list">
-            <li>
-              <div>
-                <img
-                  src="assets/img/check-square.svg"
-                  alt="tick"
-                  class="list-icon"
-                />
-                <p class="list-text">Free Wi-Fi Service</p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <img
-                  src="assets/img/check-square.svg"
-                  alt="tick"
-                  class="list-icon"
-                />
-                <p class="list-text">Best Rate Guarantee</p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <img
-                  src="assets/img/check-square.svg"
-                  alt="tick"
-                  class="list-icon"
-                />
-                <p class="list-text">Free DSTV Access</p>
-              </div>
-            </li>
-          </ul>
-          <a href="#" class="btn btn-fill btn-large">View More</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Rooms -->
-    <section class="rooms-section">
-      <div class="row room-section-header-container">
-        <div class="col col-3">
-          <h4 class="room-section-header active-header" id="standard-room">
-            Standard Rooms
-          </h4>
-        </div>
-        <!-- <div class="col col-3">
+          <!-- <div class="fcol fcol-3">
                   <h4 class="room-section-header" id="executive-room">Executive Rooms</h4>
               </div>
-              <div class="col col-3">
+              <div class="fcol fcol-3">
                   <h4 class="room-section-header" id="king-room">King Suites</h4>
               </div> -->
-      </div>
-      <div class="row center-lg">
-        {% for flight in Flights %}
-        <div class="rooms col col-2">
-          <img
-            src="https://res.cloudinary.com/start-ng/image/upload/v1591638448/Rectangle_42_nastdj.png"
-            alt=""
-            class="rooms-img"
-          />
-          <h3 class="room-title">{{ flight.source }}</h3>
-          <p class="room-text">{{ flight.destination }}</p>
-          <div>
-            <div class="details-container">
-              <img
-                src="assets/img/check-square.svg"
-                alt="tick"
-                class="list-icon"
-              />
-              <p class="list-text">
-                <b>Departure</b> <br />
-                {{ flight.dept.time }}
-              </p>
-            </div>
-            <div class="details-container">
-              <img
-                src="assets/img/check-square.svg"
-                alt="tick"
-                class="list-icon"
-              />
-              <p class="list-text">
-                <b>Destination</b> <br />
-                {{ flight.dest.time }}
-              </p>
-            </div>
-            <div class="details-container">
-              <img
-                src="assets/img/check-square.svg"
-                alt="tick"
-                class="list-icon"
-              />
-              <p class="list-text">{{ flight.seats }} available</p>
-            </div>
-            <div class="details-container">
-              <img src="assets/img/loc.png" alt="tick" class="list-icon" />
-              <p class="list-text">{{ flight.city }}</p>
-            </div>
-          </div>
-          <p class="amount-text">{{ flight.eprice }}</p>
-
-          <!-- <p class="add-text">{{ hotel.hotel_address }}</p> -->
-
-          <div class="buttons-container">
-            <a href="#" class="btn btn-fill">{{ flight.company }}</a>
-            <a href="#" class="btn btn-fill">{{ flight.journey_time }}</a>
-
-            <form action="{% url 'app:bookflight' %}" method="post">
-                {% csrf_token %}
-              <input
-                type="hidden"
-                name="flight"
-                value="{{ flight.flight_num }}"
-              />
-              <input type="hidden" name="date" value="{{ date }}" />
-              <input type="hidden" name="seats" value="{{ seats }}" />
-              <button class="btn btn-ghost">
-                Book Now
-              </button>
-            </form>
-          </div>
         </div>
+        <div class="frow center-lg">
+          {% for flight in Flights %}
+          <div class="rooms fcol fcol-2">
+            <img
+              src="https://res.cloudinary.com/start-ng/image/upload/v1591638448/Rectangle_42_nastdj.png"
+              alt=""
+              class="rooms-img"
+            />
+            <h3 class="room-title">{{ flight.source }}</h3>
+            <p class="room-text">{{ flight.destination }}</p>
+            <div>
+              <div class="details-fcontainer">
+                <img
+                  src="{% static 'assets/img/check-square.svg'%}"
+                  alt="tick"
+                  class="list-icon"
+                />
+                <p class="list-text">
+                  <b>Departure</b> <br />
+                  {{ flight.dept_time }}
+                </p>
+              </div>
+              <div class="details-fcontainer">
+                <img
+                  src="{% static 'assets/img/check-square.svg'%}"
+                  alt="tick"
+                  class="list-icon"
+                />
+                <p class="list-text">
+                  <b>Destination</b> <br />
+                  {{ flight.dest_time }}
+                </p>
+              </div>
+              <div class="details-fcontainer">
+                <img
+                  src="{% static 'assets/img/check-square.svg'%}"
+                  alt="tick"
+                  class="list-icon"
+                />
+                <p class="list-text">{{ flight.seats }} available</p>
+              </div>
+              <div class="details-fcontainer">
+                <img
+                  src="{% static 'assets/img/icons/loc.png'%}"
+                  alt="tick"
+                  class="list-icon"
+                />
+                <p class="list-text">{{ flight.destination }}</p>
+              </div>
+            </div>
+            <p class="amount-text">{{ flight.eprice }}</p>
 
-        {% endfor %}
-      </div>
-    </section>
-  </div>
-</main>
+            <div class="buttons-fcontainer row">
+              <a href="#" class="fbtn fbtn-fill col">{{ flight.company }}</a>
+              <a href="#" class="fbtn fbtn-fill col"
+                >{{ flight.journey_time }}</a
+              >
+              <form
+                action="{% url 'app:bookflight' %}"
+                class="col"
+                method="post"
+              >
+                {% csrf_token %}
+                <input
+                  type="hidden"
+                  name="flight"
+                  value="{{ flight.flight_num }}"
+                />
+                <input type="hidden" name="date" value="{{ date }}" />
+                <input type="hidden" name="seats" value="{{ seats }}" />
+                {% if Page == 'Flights' %}
+                <button class="fbtn fbtn-ghost col">Book Now</button>
+                {% else %}
+                <button class="fbtn fbtn-ghost col" disabled>Booked</button>
+                {% endif %}
+              </form>
+            </div>
+          </div>
+
+          {% endfor %}
+        </div>
+      </section>
+    </div>
+  </main>
+</section>
+
 {% endblock %} {% block js %}
 <!-- <script src={% static "assets/js/hotels.js" %}></script> -->
 {% endblock %}

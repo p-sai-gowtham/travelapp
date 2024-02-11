@@ -1,24 +1,23 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
+ {% block content %}
 
 
 
 <section class="mt-7 py-0">
   <div
     class="bg-holder w-50 bg-right d-none d-lg-block"
-    style="background-image: url(assets/img/gallery/hero-section-1.png)"
+    style="background-image: url({% static 'assets/img/gallery/hero-section-1.png'%})"
   ></div>
   <!--/.bg-holder-->
 {% for message in messages %}
-      <div class="container-fluid p-0 m-0">
-        <div class="alert {{ message.tags }} alert-dismissible m-0 text-center" role="alert" >
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="True">&times;</span>
-          </button>
-         {{ message }}
+
+         <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
     
       
-        </div>
-      </div>
       {% endfor %}
   <div class="container">
     <div class="row">
@@ -230,7 +229,7 @@
       <div class="col-lg-6 px-0">
         <img
           class="img-fluid order-md-0 mb-4 h-100 fit-cover"
-          src="assets/img/gallery/hero-section-2.png"
+          src="{% static 'assets/img/gallery/hero-section-2.png'%}"
           alt="..."
         />
       </div>
@@ -239,7 +238,7 @@
           <div class="align-items-center d-block d-flex mb-5">
             <img
               class="img-fluid me-3 me-md-2 me-lg-4"
-              src="assets/img/icons/locations.png"
+              src="{% static 'assets/img/icons/locations.png'%}"
               alt="..."
             />
             <div class="flex-1 align-items-center pt-2">
@@ -249,7 +248,7 @@
           <div class="align-items-center d-block d-flex mb-5">
             <img
               class="img-fluid me-3 me-md-2 me-lg-4"
-              src="assets/img/icons/schedule.png"
+              src="{% static 'assets/img/icons/schedule.png'%}"
               alt="..."
             />
             <div class="flex-1 align-items-center pt-2">
@@ -259,7 +258,7 @@
           <div class="align-items-center d-block d-flex mb-5">
             <img
               class="img-fluid me-3 me-md-2 me-lg-4"
-              src="assets/img/icons/save.png"
+              src="{% static 'assets/img/icons/save.png'%}"
               alt="..."
             />
             <div class="flex-1 align-items-center pt-2">
@@ -285,7 +284,7 @@
               <div class="p-6 py-md-5 px-md-3 py-lg-8 text-light">
                 <img
                   class="mb-5"
-                  src="assets/img/icons/icon-location.svg"
+                  src="{% static 'assets/img/icons/icon-location.svg'%}"
                   alt="..."
                 />
                 <h2 class="mb-2 text-light">Popular places</h2>
@@ -304,7 +303,7 @@
         <div class="card card-span h-100 text-white">
           <img
             class="img-fluid h-100 w-100"
-            src="assets/img/gallery/agra.png"
+            src="{% static 'assets/img/gallery/agra.png'%}"
             height="375"
             alt="..."
           />
@@ -322,7 +321,7 @@
         <div class="card card-span h-100 text-white">
           <img
             class="img-fluid h-100 w-100"
-            src="assets/img/gallery/kualalumpur.png"
+            src="{% static 'assets/img/gallery/kualalumpur.png'%}"
             height="375"
             alt="..."
           />
@@ -347,7 +346,7 @@
   <div
     class="bg-holder w-50 bg-left d-none d-lg-block"
     style="
-      background-image: url(assets/img/gallery/sharee.png);
+      background-image: url({% static 'assets/img/gallery/sharee.png'%});
       background-position: top;
     "
   ></div>
@@ -364,7 +363,7 @@
                 <div class="col-12">
                   <img
                     class="w-100"
-                    src="assets/img/gallery/dubai.png"
+                    src="{% static  'assets/img/gallery/dubai.png'%}"
                     height="600"
                     alt="..."
                   />
@@ -386,7 +385,7 @@
                 <div class="col-12">
                   <img
                     class="w-100"
-                    src="assets/img/gallery/cinnamon.png"
+                    src="{% static 'assets/img/gallery/cinnamon.png'%}"
                     height="600"
                     alt="..."
                   />
@@ -408,7 +407,7 @@
                 <div class="col-12">
                   <img
                     class="w-100"
-                    src="assets/img/gallery/dhigu.png"
+                    src="{% static 'assets/img/gallery/dhigu.png'%}"
                     height="600"
                     alt="..."
                   />
@@ -430,7 +429,7 @@
                 <div class="col-12">
                   <img
                     class="w-100"
-                    src="assets/img/gallery/dubai.png"
+                    src="{% static 'assets/img/gallery/dubai.png'%}"
                     height="600"
                     alt="..."
                   />
@@ -498,7 +497,7 @@
               <div class="p-3 px-lg-4 text-light">
                 <img
                   class="mb-5"
-                  src="assets/img/icons/icon-hotel.svg"
+                  src="{% static 'assets/img/icons/icon-hotel.svg'%}"
                   alt="..."
                 />
                 <h2 class="mb-3 text-light">
@@ -520,7 +519,7 @@
             <div class="card card-span h-100 text-white">
               <img
                 class="img-fluid h-100 w-100"
-                src="assets/img/gallery/moon-house-hotel.png"
+                src="{% static 'assets/img/gallery/moon-house-hotel.png'%}"
                 height="375"
                 alt="..."
               />
@@ -550,7 +549,7 @@
             <div class="card card-span h-100 text-white">
               <img
                 class="img-fluid h-100 w-100"
-                src="assets/img/gallery/blue-mosque-hotel.png"
+                src="{% static 'assets/img/gallery/blue-mosque-hotel.png'%}"
                 height="375"
                 alt="..."
               />
@@ -584,7 +583,7 @@
             <div class="card card-span h-100 text-white">
               <img
                 class="img-fluid h-100 w-100"
-                src="assets/img/gallery/hotel-royal.png"
+                src="{% static 'assets/img/gallery/hotel-royal.png'%}"
                 height="375"
                 alt="..."
               />
@@ -612,7 +611,7 @@
             <div class="card card-span h-100 text-white">
               <img
                 class="img-fluid h-100 w-100"
-                src="assets/img/gallery/boutique-hotel.png"
+                src="{% static 'assets/img/gallery/boutique-hotel.png'%}"
                 height="375"
                 alt="..."
               />
@@ -845,7 +844,7 @@
       <div class="col-12 text-center">
         <img
           class="d-inline-block"
-          src="assets/img/gallery/logo.png"
+          src="{% static 'assets/img/gallery/logo.png'%}"
           width="30"
           alt="logo"
         />

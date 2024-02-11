@@ -5,6 +5,7 @@ from .models import Flights, Hotels, BookFlight, BookHotel
 
 # Create your views here.
 
+
 @login_required
 def home(request):
     return render(request, "home/index.html")
@@ -22,7 +23,8 @@ def hotel(request):
             bhotel = (
                 BookHotel.objects.all()
                 .filter(hotel_name=i.hotel_name)
-                .filter(fdate=fdate).filter(tdate=tdate)
+                .filter(fdate=fdate)
+                .filter(tdate=tdate)
             )
             booked_rooms = 0
             for j in bhotel:
@@ -109,7 +111,20 @@ def Flightbook(request):
             booked_seats += i.seat
         available_seats = flights[0].seats - booked_seats
         if available_seats >= seats:
-            b = BookFlight(username_id=user, flight_num=flight, date=date, seat=seats)
+            b = BookFlight(
+                username_id=user,
+                flight_num=flight,
+                date=date,
+                seat=seats,
+                source=flights[0].source,
+                destination=flights[0].destination,
+                flight_name=flights[0].flight_name,
+                eprice=flights[0].eprice,
+                dept_time=flights[0].dept_time,
+                dest_time=flights[0].dest_time,
+                journey_time=flights[0].journey_time,
+                company=flights[0].company,
+            )
             b.save()
             messages.success(request, "Booked")
             return redirect("/bookedflights")
@@ -126,13 +141,31 @@ def Hotelbook(request):
         rooms = int(request.POST.get("rooms"))
         user = request.user
         hotels = Hotels.objects.all().filter(hotel_name=hotel)
-        bhotel = BookHotel.objects.all().filter(hotel_name=hotel).filter(fdate=fdate).filter(tdate=tdate)
+        bhotel = (
+            BookHotel.objects.all()
+            .filter(hotel_name=hotel)
+            .filter(fdate=fdate)
+            .filter(tdate=tdate)
+        )
         booked_rooms = 0
         for i in bhotel:
             booked_rooms += i.room
         available_rooms = hotels[0].rooms - booked_rooms
         if available_rooms >= rooms:
-            b = BookHotel(username_id=user, hotel_name=hotel, fdate=fdate, tdate=tdate,room=rooms)
+            b = BookHotel(
+                username_id=user,
+                hotel_name=hotel,
+                fdate=fdate,
+                tdate=tdate,
+                room=rooms,
+                city=hotels[0].city,
+                hotel_image=hotels[0].hotel_image,
+                hotel_address=hotels[0].hotel_address,
+                hotel_price=hotels[0].hotel_price,
+                hotel_rating=hotels[0].hotel_rating,
+                hotel_des=hotels[0].hotel_des,
+                rooms=hotels[0].rooms,
+            )
             b.save()
             messages.success(request, "Booked")
             return redirect("/bookedhotels")
