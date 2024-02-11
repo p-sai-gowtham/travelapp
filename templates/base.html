@@ -11,7 +11,24 @@
   <link href={% static "assets/css/theme.css" %} rel="stylesheet" />
   
   {% block css %}
-  {% endblock %}
+  <style>
+   
+    .navbar {
+      background-color: #ffffff; 
+      color: #000000;
+    }
+
+    .dark-mode .navbar {
+      background-color: #000000; 
+      color: #ffffff;
+    }
+    
+    
+
+
+    
+  </style>
+{% endblock %}
 
 </head>
 
@@ -22,13 +39,22 @@
           <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
           <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto pt-2 pt-lg-0 font-base">
-              <li class="nav-item px-2"><a class="nav-link fw-medium active" aria-current="page" href="#destinations"><span class="nav-link-icon text-800 me-1 fas fa-map-marker-alt"></span><span class="nav-link-text">Locations </span></a></li>
-              <li class="nav-item px-2"><a class="nav-link" href="#flights"> <span class="nav-link-icon text-800 me-1 fas fa-plane"></span><span class="nav-link-text">Flights</span></a></li>
-              <li class="nav-item px-2"><a class="nav-link" href="#hotels"> <span class="nav-link-icon text-800 me-1 fas fa-hotel"></span><span class="nav-link-text">Hotels</span></a></li>
-              <li class="nav-item px-2"><a class="nav-link" href="#activities"><span class="nav-link-icon text-800 me-1 fas fa-bolt"></span><span class="nav-link-text">Activities</span></a></li>
+<li class="nav-item px-2">
+  <a class="nav-link flight-link" href="#flights">
+    <span class="nav-link-icon text-800 me-1 fas fa-plane"></span>
+    <span class="nav-link-text">Flight Bookings</span>
+  </a>
+</li>
+<li class="nav-item px-2">
+  <a class="nav-link hotel-link" href="#hotels">
+    <span class="nav-link-icon text-800 me-1 fas fa-hotel dark"></span>
+    <span class="nav-link-text dark" >Hotel Bookings</span>
+  </a>
+</li>
+
             </ul>
             <form>
-              <button class="btn text-800 order-1 order-lg-0 me-2" type="button">Support</button>
+              <button class="btn text-800 order-1 order-lg-0 me-2" type="button" id="darkModeToggle">Dark Mode</button>
               {% if user.is_authenticated %}
             <a href={% url "user:logout" %} class="btn btn-voyage-outline order-0" type="submit"><span class="text-primary">Sign Out</span></a>
             {% else %}
@@ -46,6 +72,25 @@
       
     </main>
       
+    <script>
+      const darkModeToggle = document.getElementById('darkModeToggle');
+      const body = document.body;
+    
+      darkModeToggle.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        const dark= document.querySelectorAll('.dark');
+        
+        dark.forEach((element) => {
+          if (element.classList.contains('dark-mode')) {
+            element.classList.remove('dark-mode');
+          } else {
+            element.classList.add('dark-mode');
+          }
+        });
+        const isDarkMode = body.classList.contains('dark-mode');
+        darkModeToggle.textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
+      });
+    </script>
     <script src={% static "vendors/@popperjs/popper.min.js" %}></script>
     <script src={% static "vendors/bootstrap/bootstrap.min.js" %}></script>
     <script src={% static "vendors/is/is.min.js" %}></script>

@@ -277,42 +277,17 @@ var navbarInit = function navbarInit() {
       navbar.querySelector(Selector.NAVBAR_TOGGLER).click();
     }
   });
+  const darkModeToggle = document.getElementById('darkModeToggle');
+  const body = document.body;
 
-  if (navbar) {
-    var windowHeight = window.innerHeight;
-    var html = document.documentElement;
-    var navbarCollapse = navbar.querySelector(Selector.NAVBAR_COLLAPSE);
+  darkModeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
 
-    var allColors = _objectSpread(_objectSpread({}, utils.colors), utils.grays);
-
-    var name = utils.getData(navbar, DataKey.NAVBAR_ON_SCROLL);
-    var colorName = Object.keys(allColors).includes(name) ? name : 'white';
-    var color = allColors[colorName];
-    var bgClassName = "bg-".concat(colorName);
-    var shadowName = 'shadow-transition';
-    var colorRgb = utils.hexToRgb(color);
-
-    var _window$getComputedSt = window.getComputedStyle(navbar),
-        backgroundImage = _window$getComputedSt.backgroundImage;
-
-    var transition = 'background-color 0.35s ease';
-    navbar.style.backgroundImage = 'none'; // Change navbar background color on scroll
-
-    window.addEventListener(Events.SCROLL, function () {
-      var scrollTop = html.scrollTop;
-      var alpha = scrollTop / windowHeight * 1.5; // Add class on scroll
-
-      navbar.classList.add('backdrop');
-
-      if (alpha === 0) {
-        navbar.classList.remove('backdrop');
-      }
-
-      alpha >= 1 && (alpha = 1);
-      navbar.style.backgroundColor = "rgba(".concat(colorRgb[0], ", ").concat(colorRgb[1], ", ").concat(colorRgb[2], ", ").concat(alpha, ")");
-      navbar.style.backgroundImage = alpha > 0 || utils.hasClass(navbarCollapse, 'show') ? backgroundImage : 'none';
-      alpha > 0 || utils.hasClass(navbarCollapse, 'show') ? navbar.classList.add(shadowName) : navbar.classList.remove(shadowName);
-    }); // Toggle bg class on window resize
+    // Check current mode and update button text
+    const isDarkMode = body.classList.contains('dark-mode');
+    darkModeToggle.textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
+  });
+  
 
     utils.resize(function () {
       var breakPoint = utils.getBreakpoint(navbar);
@@ -345,7 +320,7 @@ var navbarInit = function navbarInit() {
       navbar.style.transition = 'none';
     });
   }
-};
+
 /* -------------------------------------------------------------------------- */
 
 /*                                Scroll To Top                               */
