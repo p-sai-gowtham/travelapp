@@ -5,12 +5,13 @@
 {% endblock %}
 
 {% block content %}
+<section class="mt-7 py-0">
 <main>
     {% for message in messages %}
 
     <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
         {{ message }}
-        <button type="button" class="fbtn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     {% endfor %}
     <div class="fcontainer">
@@ -52,7 +53,7 @@
                             <p class="list-text">{{ hotel.rooms }} available</p>
                         </div>
                         <div class="details-fcontainer">
-                            <img src="{% static 'assets/img/loc.png'%}" alt="tick" class="list-icon">
+                            <img src="{% static 'assets/img/icons/loc.png'%}" alt="tick" class="list-icon">
                             <p class="list-text">{{ hotel.city }} </p>
                         </div>
                     </div>
@@ -61,16 +62,20 @@
 
                     <p class="add-text">{{ hotel.hotel_address }}</p>
 
-                    <div class="buttons-fcontainer">
-                        <a href="#" class="fbtn fbtn-fill">{{ hotel.hotel_rating }}</a>
+                    <div class="buttons-fcontainer row">
+                        <a href="#" class="fbtn fbtn-fill col">{{ hotel.hotel_rating }}</a>
 
-                        <form action="{% url 'app:bookhotel' %}" method="post">
+                        <form action="{% url 'app:bookhotel' %}" class="col" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="hotel" value="{{ hotel.hotel_name }}">
                             <input type="hidden" name="fdate" value="{{ fdate }}">
                             <input type="hidden" name="tdate" value="{{ tdate }}">
                             <input type="hidden" name="rooms" value="{{ rooms }}">
-                            <button type="submit" class="fbtn fbtn-ghost">Book Now</button>
+                            {% if Page == 'Hotels' %}
+                            <button type="submit" class="fbtn fbtn-ghost col">Book Now</button>
+                            {% else %}
+                            <button class="fbtn fbtn-ghost col" disabled>Booked</button>
+                            {% endif %}
                         </form>
 
 
@@ -83,9 +88,65 @@
         </section>
     </div>
 </main>
+</section>
 {% endblock %}
+
 
 
 {% block js %}
 <script src={% static "assets/js/hotels.js" %}></script>
-{% endblock %}
+<script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const mode = localStorage.getItem("darkMode");
+        const dark= document.querySelectorAll('.dark');
+        const darkw = document.querySelectorAll('.darkw');
+        
+        if(!mode){
+          localStorage.setItem("darkMode", "light");
+          darkModeToggle.innerHTML = "Dark Mode";
+        } else{
+          if(mode === "dark"){
+            darkModeToggle.innerHTML = "Light Mode";
+            dark.forEach((element) => {
+              element.classList.add('dark-mode');
+            });
+            darkw.forEach((element) => {
+              element.classList.add('dark-word');
+            });
+          }
+        }
+        
+        
+      });
+      
+      
+      darkModeToggle.addEventListener('click', () => {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const mode = localStorage.getItem("darkMode");
+        const dark= document.querySelectorAll('.dark');
+        const darkw = document.querySelectorAll('.darkw');
+
+        if(mode === "dark"){
+          darkModeToggle.innerHTML = "Dark Mode";
+          dark.forEach((element) => {
+            element.classList.remove('dark-mode');
+          });
+          darkw.forEach((element) => {
+            element.classList.remove('dark-word');
+          });
+          localStorage.setItem("darkMode", "light");
+        } else{
+          darkModeToggle.innerHTML = "Light Mode";
+          dark.forEach((element) => {
+            element.classList.add('dark-mode');
+          });
+          darkw.forEach((element) => {
+            element.classList.add('dark-word');
+          });
+          localStorage.setItem("darkMode", "dark");
+        }
+
+      });
+    </script>
+{% endblock js %}

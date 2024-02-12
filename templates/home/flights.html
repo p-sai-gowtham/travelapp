@@ -29,12 +29,6 @@
               Standard Flights
             </h4>
           </div>
-          <!-- <div class="fcol fcol-3">
-                  <h4 class="room-section-header" id="executive-room">Executive Rooms</h4>
-              </div>
-              <div class="fcol fcol-3">
-                  <h4 class="room-section-header" id="king-room">King Suites</h4>
-              </div> -->
         </div>
         <div class="frow center-lg">
           {% for flight in Flights %}
@@ -141,5 +135,58 @@
 </section>
 
 {% endblock %} {% block js %}
-<!-- <script src={% static "assets/js/hotels.js" %}></script> -->
+<script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const mode = localStorage.getItem("darkMode");
+        const dark= document.querySelectorAll('.dark');
+        const darkw = document.querySelectorAll('.darkw');
+        
+        if(!mode){
+          localStorage.setItem("darkMode", "light");
+          darkModeToggle.innerHTML = "Dark Mode";
+        } else{
+          if(mode === "dark"){
+            darkModeToggle.innerHTML = "Light Mode";
+            dark.forEach((element) => {
+              element.classList.add('dark-mode');
+            });
+            darkw.forEach((element) => {
+              element.classList.add('dark-word');
+            });
+          }
+        }
+        
+        
+      });
+      
+      
+      darkModeToggle.addEventListener('click', () => {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const mode = localStorage.getItem("darkMode");
+        const dark= document.querySelectorAll('.dark');
+        const darkw = document.querySelectorAll('.darkw');
+
+        if(mode === "dark"){
+          darkModeToggle.innerHTML = "Dark Mode";
+          dark.forEach((element) => {
+            element.classList.remove('dark-mode');
+          });
+          darkw.forEach((element) => {
+            element.classList.remove('dark-word');
+          });
+          localStorage.setItem("darkMode", "light");
+        } else{
+          darkModeToggle.innerHTML = "Light Mode";
+          dark.forEach((element) => {
+            element.classList.add('dark-mode');
+          });
+          darkw.forEach((element) => {
+            element.classList.add('dark-word');
+          });
+          localStorage.setItem("darkMode", "dark");
+        }
+
+      });
+    </script>
 {% endblock %}

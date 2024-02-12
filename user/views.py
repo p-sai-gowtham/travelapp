@@ -79,5 +79,4 @@ def add_user(request):
         return render(
             request, "user/login.html", {"message": "Incorrect email or password"}
         )
-
-    return render(request, "your_template.html")
+    return render(request, "user/login.html", {"page": "signup"})

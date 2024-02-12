@@ -277,16 +277,6 @@ var navbarInit = function navbarInit() {
       navbar.querySelector(Selector.NAVBAR_TOGGLER).click();
     }
   });
-  const darkModeToggle = document.getElementById('darkModeToggle');
-  const body = document.body;
-
-  darkModeToggle.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-
-    // Check current mode and update button text
-    const isDarkMode = body.classList.contains('dark-mode');
-    darkModeToggle.textContent = isDarkMode ? 'Light Mode' : 'Dark Mode';
-  });
   
 
     utils.resize(function () {

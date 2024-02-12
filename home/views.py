@@ -164,7 +164,6 @@ def Hotelbook(request):
                 hotel_price=hotels[0].hotel_price,
                 hotel_rating=hotels[0].hotel_rating,
                 hotel_des=hotels[0].hotel_des,
-                rooms=hotels[0].rooms,
             )
             b.save()
             messages.success(request, "Booked")

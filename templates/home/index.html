@@ -68,9 +68,9 @@
                         class="form-select form-voyage-select input-box"
                         id="inputSource"
                         name="source"
-                        placeholder
+                        required
                       >
-                        <option value="---">---</option>
+                        <option value="vizag">---</option>
                         <option value="vizag">Vizag</option>
                         <option value="hyderabad">Hyderabad</option>
                         <option value="bengaluru">Bengaluru</option>
@@ -85,6 +85,7 @@
                         >Destination</label
                       >
                       <select
+                      required
                         class="form-select form-voyage-select input-box"
                         id="inputDestination"
                         name="destination"
@@ -104,6 +105,7 @@
                         >Journey Date</label
                       >
                       <input
+                      required
                         class="form-control input-box form-voyage-control"
                         id="inputDateThree"
                         type="date"
@@ -121,6 +123,7 @@
                         class="form-control input-box form-voyage-control"
                         id="inputPeopleTwo"
                         type="text"
+                        required
                         name="seats"
                         placeholder="From where"
                       /><span
@@ -149,6 +152,7 @@
                     <div class="input-group-icon">
                       <label class="form-label" for="inputFromDate">From</label>
                       <input
+                      required
                         class="form-control input-box form-voyage-control"
                         id="inputDateThree"
                         type="date"
@@ -161,6 +165,7 @@
                     <div class="input-group-icon">
                       <label class="form-label" for="inputToDate">To</label>
                       <input
+                      required
                         class="form-control input-box form-voyage-control"
                         id="inputDateThree"
                         type="date"
@@ -175,6 +180,7 @@
                         >Location</label
                       >
                       <select
+                      required
                         class="form-select form-voyage-select input-box"
                         id="inputLocation"
                         name="city"
@@ -197,6 +203,7 @@
                         class="form-control input-box form-voyage-control"
                         id="inputPeopleTwo"
                         type="text"
+                        required
                         name="rooms"
                         placeholder="No. of Rooms"
                       /><span
@@ -474,8 +481,7 @@
                   <path
                     fill-rule="evenodd"
                     d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
-                  ></path></svg
-              ></a>
+                  ></path></svg></a>
             </div>
           </div>
         </div>
@@ -668,8 +674,7 @@
                     <path
                       fill-rule="evenodd"
                       d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"
-                    ></path></svg
-                ></a>
+                    ></path></svg></a>
               </div>
             </div>
           </div>
@@ -810,8 +815,7 @@
       <div class="col-12 col-sm-4 col-md-3 col-lg-4 col-xl-2">
         <div
           class="d-flex flex-column justify-content-center px-3"
-          style="background-color: #3011bb; min-height: 230px"
-        >
+          style="background-color: #3011bb; min-height: 230px">
           <h5 class="text-light">Dhaka - Chittagong</h5>
           <h6 class="text-light fw-normal fs-0">From $100</h6>
           <i class="fas fa-arrow-right text-light mt-4"></i
@@ -855,3 +859,60 @@
 </section>
 
 {% endblock content %}
+
+{% block js %}
+<script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const mode = localStorage.getItem("darkMode");
+        const dark= document.querySelectorAll('.dark');
+        const darkw = document.querySelectorAll('.darkw');
+        
+        if(!mode){
+          localStorage.setItem("darkMode", "light");
+          darkModeToggle.innerHTML = "Dark Mode";
+        } else{
+          if(mode === "dark"){
+            darkModeToggle.innerHTML = "Light Mode";
+            dark.forEach((element) => {
+              element.classList.add('dark-mode');
+            });
+            darkw.forEach((element) => {
+              element.classList.add('dark-word');
+            });
+          }
+        }
+        
+        
+      });
+      
+      
+      darkModeToggle.addEventListener('click', () => {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const mode = localStorage.getItem("darkMode");
+        const dark= document.querySelectorAll('.dark');
+        const darkw = document.querySelectorAll('.darkw');
+
+        if(mode === "dark"){
+          darkModeToggle.innerHTML = "Dark Mode";
+          dark.forEach((element) => {
+            element.classList.remove('dark-mode');
+          });
+          darkw.forEach((element) => {
+            element.classList.remove('dark-word');
+          });
+          localStorage.setItem("darkMode", "light");
+        } else{
+          darkModeToggle.innerHTML = "Light Mode";
+          dark.forEach((element) => {
+            element.classList.add('dark-mode');
+          });
+          darkw.forEach((element) => {
+            element.classList.add('dark-word');
+          });
+          localStorage.setItem("darkMode", "dark");
+        }
+
+      });
+    </script>
+{% endblock js %}
