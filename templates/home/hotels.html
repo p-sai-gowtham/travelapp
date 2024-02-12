@@ -6,88 +6,92 @@
 
 {% block content %}
 <section class="mt-7 py-0">
-<main>
-    {% for message in messages %}
+    <main>
+        {% for message in messages %}
 
-    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    {% endfor %}
-    <div class="fcontainer">
+        <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        <div class="fcontainer">
 
-        <!-- Top Text -->
-        
+            <!-- Top Text -->
 
-        <!-- Rooms -->
-        <section class="rooms-section">
-            <div class="frow room-section-header-fcontainer">
-                <!-- <div class="fcol fcol-3">
+
+            <!-- Rooms -->
+            <section class="rooms-section">
+                <div class="frow room-section-header-fcontainer">
+                    <!-- <div class="fcol fcol-3">
                     <h4 class="room-section-header active-header" id="standard-room">Standard Rooms</h4>
                 </div> -->
-                <!-- <div class="fcol fcol-3">
+                    <!-- <div class="fcol fcol-3">
                   <h4 class="room-section-header" id="executive-room">Executive Rooms</h4>
               </div>
               <div class="fcol fcol-3">
                   <h4 class="room-section-header" id="king-room">King Suites</h4>
               </div> -->
-            </div>
-            <div class="frow center-lg">
-
-                {% for hotel in Hotels %}
-                <div class="rooms fcol fcol-2">
-                    <img width="50%" src="{{ hotel.hotel_image.url }}" alt="" class="rooms-img">
-                    <h3 class="room-title"> {{ hotel.hotel_name }} </h3>
-                    <p class="room-text">{{ hotel.des }}</p>
-                    <div>
-                        <div class="details-fcontainer">
-                            <img src="{% static 'assets/img/check-square.svg'%}" alt="tick" class="list-icon">
-                            <p class="list-text">2 Persons</p>
-                        </div>
-                        <div class="details-fcontainer">
-                            <img src="{% static 'assets/img/check-square.svg'%}" alt="tick" class="list-icon">
-                            <p class="list-text">1 Kingsize bed</p>
-                        </div>
-                        <div class="details-fcontainer">
-                            <img src="{% static 'assets/img/check-square.svg'%}" alt="tick" class="list-icon">
-                            <p class="list-text">{{ hotel.rooms }} available</p>
-                        </div>
-                        <div class="details-fcontainer">
-                            <img src="{% static 'assets/img/icons/loc.png'%}" alt="tick" class="list-icon">
-                            <p class="list-text">{{ hotel.city }} </p>
-                        </div>
-                    </div>
-                    <p class="amount-text">{{ hotel.hotel_price }}</p>
-
-
-                    <p class="add-text">{{ hotel.hotel_address }}</p>
-
-                    <div class="buttons-fcontainer row">
-                        <a href="#" class="fbtn fbtn-fill col">{{ hotel.hotel_rating }}</a>
-
-                        <form action="{% url 'app:bookhotel' %}" class="col" method="post">
-                            {% csrf_token %}
-                            <input type="hidden" name="hotel" value="{{ hotel.hotel_name }}">
-                            <input type="hidden" name="fdate" value="{{ fdate }}">
-                            <input type="hidden" name="tdate" value="{{ tdate }}">
-                            <input type="hidden" name="rooms" value="{{ rooms }}">
-                            {% if Page == 'Hotels' %}
-                            <button type="submit" class="fbtn fbtn-ghost col">Book Now</button>
-                            {% else %}
-                            <button class="fbtn fbtn-ghost col" disabled>Booked</button>
-                            {% endif %}
-                        </form>
-
-
-                    </div>
                 </div>
+                <div class="frow center-lg">
 
-                {% endfor %}
+                    {% for hotel in Hotels %}
+                    <div class="rooms fcol fcol-2">
+                        <img width="50%" src="{{ hotel.hotel_image.url }}" alt="" class="rooms-img">
+                        <h3 class="room-title"> {{ hotel.hotel_name }} </h3>
+                        <p class="room-text">{{ hotel.des }}</p>
+                        <div>
+                            <div class="details-fcontainer">
+                                <img src="{% static 'assets/img/check-square.svg'%}" alt="tick" class="list-icon">
+                                <p class="list-text">2 Persons</p>
+                            </div>
+                            <div class="details-fcontainer">
+                                <img src="{% static 'assets/img/check-square.svg'%}" alt="tick" class="list-icon">
+                                <p class="list-text">1 Kingsize bed</p>
+                            </div>
+                            <div class="details-fcontainer">
+                                <img src="{% static 'assets/img/check-square.svg'%}" alt="tick" class="list-icon">
+                                <p class="list-text">{{ hotel.rooms }} available</p>
+                            </div>
+                            <div class="details-fcontainer">
+                                <img src="{% static 'assets/img/icons/loc.png'%}" alt="tick" class="list-icon">
+                                <p class="list-text">{{ hotel.city }} </p>
+                            </div>
+                        </div>
+                        <p class="amount-text">{{ hotel.hotel_price }}</p>
 
-            </div>
-        </section>
-    </div>
-</main>
+
+                        <p class="add-text">{{ hotel.hotel_address }}</p>
+
+                        <div class="buttons-fcontainer row">
+                            <div class="col-1">
+                                <i class="fa fa-star"></i>
+                                <!-- <a href="#" class="fbtn fbtn-fill col">{{ hotel.hotel_rating }}</a> -->
+                            </div>
+                            <p class="rating col-2">{{ hotel.hotel_rating}}</p>
+
+                            <form action="{% url 'app:bookhotel' %}" class="col-4" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="hotel" value="{{ hotel.hotel_name }}">
+                                <input type="hidden" name="fdate" value="{{ fdate }}">
+                                <input type="hidden" name="tdate" value="{{ tdate }}">
+                                <input type="hidden" name="rooms" value="{{ rooms }}">
+                                {% if Page == 'Hotels' %}
+                                <button type="submit" class="fbtn fbtn-ghost col">Book Now</button>
+                                {% else %}
+                                <button class="fbtn fbtn-ghost col" disabled>Booked</button>
+                                {% endif %}
+                            </form>
+
+
+                        </div>
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+            </section>
+        </div>
+    </main>
 </section>
 {% endblock %}
 
@@ -96,57 +100,57 @@
 {% block js %}
 <script src={% static "assets/js/hotels.js" %}></script>
 <script>
-      document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
         const darkModeToggle = document.getElementById('darkModeToggle');
         const mode = localStorage.getItem("darkMode");
-        const dark= document.querySelectorAll('.dark');
+        const dark = document.querySelectorAll('.dark');
         const darkw = document.querySelectorAll('.darkw');
-        
-        if(!mode){
-          localStorage.setItem("darkMode", "light");
-          darkModeToggle.innerHTML = "Dark Mode";
-        } else{
-          if(mode === "dark"){
-            darkModeToggle.innerHTML = "Light Mode";
+
+        if (!mode) {
+            localStorage.setItem("darkMode", "light");
+            darkModeToggle.innerHTML = "Dark Mode";
+        } else {
+            if (mode === "dark") {
+                darkModeToggle.innerHTML = "Light Mode";
+                dark.forEach((element) => {
+                    element.classList.add('dark-mode');
+                });
+                darkw.forEach((element) => {
+                    element.classList.add('dark-word');
+                });
+            }
+        }
+
+
+    });
+
+
+    darkModeToggle.addEventListener('click', () => {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const mode = localStorage.getItem("darkMode");
+        const dark = document.querySelectorAll('.dark');
+        const darkw = document.querySelectorAll('.darkw');
+
+        if (mode === "dark") {
+            darkModeToggle.innerHTML = "Dark Mode";
             dark.forEach((element) => {
-              element.classList.add('dark-mode');
+                element.classList.remove('dark-mode');
             });
             darkw.forEach((element) => {
-              element.classList.add('dark-word');
+                element.classList.remove('dark-word');
             });
-          }
-        }
-        
-        
-      });
-      
-      
-      darkModeToggle.addEventListener('click', () => {
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const mode = localStorage.getItem("darkMode");
-        const dark= document.querySelectorAll('.dark');
-        const darkw = document.querySelectorAll('.darkw');
-
-        if(mode === "dark"){
-          darkModeToggle.innerHTML = "Dark Mode";
-          dark.forEach((element) => {
-            element.classList.remove('dark-mode');
-          });
-          darkw.forEach((element) => {
-            element.classList.remove('dark-word');
-          });
-          localStorage.setItem("darkMode", "light");
-        } else{
-          darkModeToggle.innerHTML = "Light Mode";
-          dark.forEach((element) => {
-            element.classList.add('dark-mode');
-          });
-          darkw.forEach((element) => {
-            element.classList.add('dark-word');
-          });
-          localStorage.setItem("darkMode", "dark");
+            localStorage.setItem("darkMode", "light");
+        } else {
+            darkModeToggle.innerHTML = "Light Mode";
+            dark.forEach((element) => {
+                element.classList.add('dark-mode');
+            });
+            darkw.forEach((element) => {
+                element.classList.add('dark-word');
+            });
+            localStorage.setItem("darkMode", "dark");
         }
 
-      });
-    </script>
+    });
+</script>
 {% endblock js %}

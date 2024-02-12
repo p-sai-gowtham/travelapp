@@ -1,132 +1,128 @@
-{% extends 'base.html' %} {% load static %} {% block css %}
-<link href="{% static 'assets/css/flights.css' %}" rel="stylesheet" />
-{%endblock%} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
 
+{% block css %}
+<link href="{% static 'assets/css/flights.css' %}" rel="stylesheet" />
+<style>
+  .card-container {
+    display: flex;
+    overflow-x: auto; 
+  }
+
+  .card {
+    flex: 0 0 auto;
+    margin-right: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #fff; 
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .card:hover {
+    transform: scale(1.05); 
+  }
+
+  .card-body {
+    display: flex;
+    align-items: center;
+    flex-direction: column; /* Center content vertically */
+    text-align: center; /* Center text horizontally */
+  }
+
+  .card-graphic {
+    flex: 0 0 auto;
+    margin-bottom: 10px; /* Add margin between image and title */
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  .card-graphic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .flight-info {
+    font-size: 14px; /* Adjust font size as needed */
+    font-weight: 500;
+    color: #555; /* Adjust color as needed */
+  }
+
+  .room-title {
+    margin: 5px 0 10px; /* Adjust margin as needed */
+    font-size: 18px; /* Adjust font size as needed */
+  }
+
+  .details-fcontainer {
+    margin-bottom: 10px;
+  }
+
+  .amount-text {
+    margin-top: 10px;
+    font-size: 20px;
+    color: #007bff; 
+  }
+
+  .buttons-fcontainer {
+    margin-top: 10px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
 <section class="mt-7 py-0">
   <main>
     {% for message in messages %}
-
-    <div
-      class="alert {{ message.tags }} alert-dismissible fade show"
-      role="alert"
-    >
+    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
       {{ message }}
-      <button
-        type="button"
-        class="btn-close"
-        data-bs-dismiss="alert"
-        aria-label="Close"
-      ></button>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-
     {% endfor %}
-    <div class="fcontainer">
-      <!-- Rooms -->
+
+    <div class="fcontainer card-container">
       <section class="rooms-section">
-        <div class="frow room-section-header-fcontainer">
-          <div class="fcol fcol-3">
-            <h4 class="room-section-header active-header" id="standard-room">
-              Standard Flights
-            </h4>
-          </div>
-        </div>
         <div class="frow center-lg">
           {% for flight in Flights %}
-          <div class="rooms fcol fcol-2">
-            <img
-              src="{% static 'assets/img/flights.webp'%}"
-              alt=""
-              class="rooms-img"
-            />
-            
-            <h3 class="room-title">{{ flight.source }}</h3>
-            <!-- <p class="room-text">DESTINATION {{ flight.destination }}</p> -->
-            <img
-                  src="{% static 'assets/img/icons/loc.png'%}"
-                  alt="tick"
-                  class="list-icon"
-                />
-                <p class="list-text">{{ flight.destination }}</p>
-            <div>
+          <div class="rooms fcol fcol-4 card">
+            <div class="card-body">
+              <div class="card-graphic">
+                <img src="{% static 'assets\img\cc33e6304b84c490b8c5192fdbb6e29d.jpg' %}">
+              </div>
+              <h3 class="flight-info">
+                {{ flight.flight_name }} - Seats: {{ flight.seats }}
+              </h3>
+              <h3 class="room-title">{{ flight.source }} to {{ flight.destination }}</h3>
               <div class="details-fcontainer">
-                <img
-                  src="{% static 'assets/img/check-square.svg'%}"
-                  alt="tick"
-                  class="list-icon"
-                />
                 <p class="list-text">
-                  <b>Departure</b> <br />
-                  {{ flight.dept_time }}
+                  <i class="fas fa-plane-departure"></i>  {{ flight.dept_time }}
+                </p>
+                <p class="list-text">
+                  <i class="fas fa-clock"></i>  {{ flight.journey_time }}
+                </p>
+                <p class="list-text">
+                  <i class="fas fa-plane-arrival"></i> {{ flight.dest_time }}
                 </p>
               </div>
-              <div class="details-fcontainer">
-                <img
-                  src="{% static 'assets/img/check-square.svg'%}"
-                  alt="tick"
-                  class="list-icon"
-                />
-                <p class="list-text">
-                  <b>Duration</b> <br />
-                  {{ flight.journey_time }}
-                </p>
+              <p class="amount-text">{{ flight.eprice }}</p>
+              <div class="buttons-fcontainer">
+                <form action="{% url 'app:bookflight' %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="flight" value="{{ flight.flight_num }}" />
+                  <input type="hidden" name="date" value="{{ date }}" />
+                  <input type="hidden" name="seats" value="{{ seats }}" />
+                  {% if Page == 'Flights' %}
+                  <button class="fbtn fbtn-ghost">Book Now</button>
+                  {% else %}
+                  <button class="fbtn fbtn-ghost" disabled>Booked</button>
+                  {% endif %}
+                </form>
               </div>
-              <div class="details-fcontainer">
-                <img
-                  src="{% static 'assets/img/check-square.svg'%}"
-                  alt="tick"
-                  class="list-icon"
-                />
-                <p class="list-text">
-                  <b>Destination</b> <br />
-                  {{ flight.dest_time }}
-                </p>
-              </div>
-              <!-- <div class="details-fcontainer">
-                <img
-                  src="{% static 'assets/img/check-square.svg'%}"
-                  alt="tick"
-                  class="list-icon"
-                />
-                <p class="list-text">{{ flight.seats }} available</p>
-              </div> -->
-              <div class="details-fcontainer">
-                <!-- <img
-                  src="{% static 'assets/img/icons/loc.png'%}"
-                  alt="tick"
-                  class="list-icon"
-                />
-                <p class="list-text">{{ flight.destination }}</p> -->
-              </div>
-            </div>
-            <p class="amount-text">{{ flight.eprice }}</p>
-
-            <div class="buttons-fcontainer row">
-              <a href="#" class="fbtn fbtn-fill col">{{ flight.company }}</a>
-              <a href="#" class="fbtn fbtn-fill col"
-                >{{ flight.journey_time }}</a
-              >
-              <form
-                action="{% url 'app:bookflight' %}"
-                class="col"
-                method="post"
-              >
-                {% csrf_token %}
-                <input
-                  type="hidden"
-                  name="flight"
-                  value="{{ flight.flight_num }}"
-                />
-                <input type="hidden" name="date" value="{{ date }}" />
-                <input type="hidden" name="seats" value="{{ seats }}" />
-                {% if Page == 'Flights' %}
-                <button class="fbtn fbtn-ghost col">Book Now</button>
-                {% else %}
-                <button class="fbtn fbtn-ghost col" disabled>Booked</button>
-                {% endif %}
-              </form>
             </div>
           </div>
-
           {% endfor %}
         </div>
       </section>
