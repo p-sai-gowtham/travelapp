@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 {% load static %}
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,82 +10,90 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link href={% static "assets/css/theme.css" %} rel="stylesheet" />
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   {% block css %}
   <style>
-   
     .navbar {
-      background-color: #ffffff !important; 
+      background-color: #ffffff !important;
       color: #000000;
     }
 
     .dark-mode {
-      background-color: #000000 !important; 
+      background-color: #000000 !important;
       color: #ffffff !important;
     }
 
-    .dark-word{
+    .dark-word {
       color: #fff !important;
     }
-    
-    
-
-
-    
   </style>
-{% endblock %}
+  {% endblock %}
 
 </head>
 
 <body class="dark">
-    <main class="main" id="top">
-      <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block dark" data-navbar-on-scroll="data-navbar-on-scroll">
-        <div class="container"><a class="navbar-brand" href="/"><img class="d-inline-block" src="{% static 'assets/img/gallery/logo.png'%}" width="50" alt="logo" /><span class="fw-bold text-primary ms-2">voyage</span></a>
-          <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-          <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto pt-2 pt-lg-0 font-base">
-<li class="nav-item px-2">
-  <a class="nav-link flight-link darkw" href="{% url 'app:bookedflights' %}">
-    <span class="nav-link-icon text-800 me-1 fas fa-plane"></span>
-    <span class="nav-link-text darkw">Flight Bookings</span>
-  </a>
-</li>
-<li class="nav-item px-2">
-  <a class="nav-link hotel-link darkw" href="{% url 'app:bookedhotels' %}">
-    <span class="nav-link-icon text-800 me-1 fas fa-hotel "></span>
-    <span class="nav-link-text darkw" >Hotel Bookings</span>
-  </a>
-</li>
+  <main class="main" id="top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block dark"
+      data-navbar-on-scroll="data-navbar-on-scroll">
+      <div class="container"><a class="navbar-brand" href="/"><img class="d-inline-block"
+            src="{% static 'assets/img/gallery/logo.png'%}" width="50" alt="logo" /><span
+            class="fw-bold text-primary ms-2">voyage</span></a>
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto pt-2 pt-lg-0 font-base">
+            <li class="nav-item px-2">
+              <a class="nav-link flight-link darkw" href="{% url 'app:bookedflights' %}">
+                <span class="nav-link-icon text-800 me-1 fas fa-plane"></span>
+                <span class="nav-link-text darkw">Flight Bookings</span>
+              </a>
+            </li>
+            <li class="nav-item px-2">
+              <a class="nav-link hotel-link darkw" href="{% url 'app:bookedhotels' %}">
+                <span class="nav-link-icon text-800 me-1 fas fa-hotel "></span>
+                <span class="nav-link-text darkw">Hotel Bookings</span>
+              </a>
+            </li>
 
-            </ul>
-            <form>
-              <button class="btn text-800 order-1 order-lg-0 me-2" type="button" id="darkModeToggle">Dark Mode</button>
-              {% if user.is_authenticated %}
-            <a href={% url "user:logout" %} class="btn btn-voyage-outline order-0" type="submit"><span class="text-primary">Sign Out</span></a>
+          </ul>
+          <form>
+            <button class="btn text-800 order-1 order-lg-0 me-2" type="button" id="darkModeToggle">Dark Mode</button>
+            {% if user.is_authenticated %}
+            <a href={% url "user:logout" %} class="btn btn-voyage-outline order-0" type="submit"><span
+                class="text-primary">Sign Out</span></a>
             {% else %}
-            <a href={% url "user:login" %} class="btn btn-voyage-outline order-0" type="submit"><span class="text-primary">Sign in</span></a>
+            <a href={% url "user:login" %} class="btn btn-voyage-outline order-0" type="submit"><span
+                class="text-primary">Sign in</span></a>
             {% endif %}
-              
-            </form>
-          </div>
+
+          </form>
         </div>
-      </nav>
+      </div>
+    </nav>
 
-      {% block content %}
-      {% endblock content %}
+    {% block content %}
+    {% endblock content %}
 
-    
-    </main>
-    <script src={% static "vendors/@popperjs/popper.min.js" %}></script>
-    <script src={% static "vendors/bootstrap/bootstrap.min.js" %}></script>
-    <script src={% static "vendors/is/is.min.js" %}></script>
-    <script src={% static "https://polyfill.io/v3/polyfill.min.js?features=window.scroll" %}></script>
-    <script src={% static "vendors/fontawesome/all.min.js" %}></script>
-    <script src={% static "assets/js/theme.js" %}></script>
-    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+  </main>
+  <script src={% static "vendors/@popperjs/popper.min.js" %}></script>
+  <script src={% static "vendors/bootstrap/bootstrap.min.js" %}></script>
+  <script src={% static "vendors/is/is.min.js" %}></script>
+  <script src={% static "https://polyfill.io/v3/polyfill.min.js?features=window.scroll" %}></script>
+  <script src={% static "vendors/fontawesome/all.min.js" %}></script>
+  <script src={% static "assets/js/theme.js" %}></script>
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&amp;display=swap"
+    rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
   {% block js %}
   {% endblock js %}
 
