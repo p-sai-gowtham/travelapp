@@ -12,20 +12,27 @@
   <link href={% static "assets/css/theme.css" %} rel="stylesheet" />
   
   <style>
-    .navbar {
-      background-color: #ffffff !important;
-      color: #000000;
-    }
+    body {
+      background-color: #F1EAFF;
+  }
+        .navbar {
+            background-color: #DFCCFB!important;
+            color: #2D033B !important;
+        }
 
-    .dark-mode {
-      background-color: #000000 !important;
-      color: #ffffff !important;
-    }
+        .navbar.dark-mode {
+            background-color: #240338 !important;
+            color: #FFF8C9 !important;
+        }
 
-    .dark-word {
-      color: #fff !important;
-    }
-  </style>
+        .dark-word {
+            color: #FFF8C9 !important;
+        }
+        .navbar.dark-mode .navbar-brand .fw-bold.text-primary.ms-2 {
+          color: #FFF8C9 !important;
+      }
+      
+    </style>
   {% block css %}
 {% endblock %}
 
@@ -37,7 +44,7 @@
       data-navbar-on-scroll="data-navbar-on-scroll">
       <div class="container"><a class="navbar-brand" href="/"><img class="d-inline-block"
             src="{% static 'assets/img/gallery/logo.png'%}" width="50" alt="logo" /><span
-            class="fw-bold text-primary ms-2">voyage</span></a>
+            class="fw-bold text-primary ms-2" style="color: #2D033B;">voyage</span></a>
         <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
           aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -45,26 +52,26 @@
           <ul class="navbar-nav mx-auto pt-2 pt-lg-0 font-base">
             <li class="nav-item px-2">
               <a class="nav-link flight-link darkw" href="{% url 'app:bookedflights' %}">
-                <span class="nav-link-icon text-800 me-1 fas fa-plane"></span>
+                <span class="nav-link-icon text-800 me-1 fas fa-plane dark"></span>
                 <span class="nav-link-text darkw">Flight Bookings</span>
               </a>
             </li>
             <li class="nav-item px-2">
               <a class="nav-link hotel-link darkw" href="{% url 'app:bookedhotels' %}">
-                <span class="nav-link-icon text-800 me-1 fas fa-hotel "></span>
+                <span class="nav-link-icon text-800 me-1 fas fa-hotel dark"></span>
                 <span class="nav-link-text darkw">Hotel Bookings</span>
               </a>
             </li>
 
           </ul>
           <form>
-            <button class="btn text-800 order-1 order-lg-0 me-2" type="button" id="darkModeToggle">Dark Mode</button>
+            <button class="btn text-800 order-1 order-lg-0 me-2 darkw" type="button" id="darkModeToggle">Dark Mode</button>
             {% if user.is_authenticated %}
             <a href={% url "user:logout" %} class="btn btn-voyage-outline order-0" type="submit"><span
-                class="text-primary">Sign Out</span></a>
+                class="text-primary darkw">Sign Out</span></a>
             {% else %}
             <a href={% url "user:login" %} class="btn btn-voyage-outline order-0" type="submit"><span
-                class="text-primary">Sign in</span></a>
+                class="text-primary darkw">Sign in</span></a>
             {% endif %}
 
           </form>
@@ -72,11 +79,13 @@
       </div>
     </nav>
 
+
     {% block content %}
     {% endblock content %}
 
 
   </main>
+  
   <script src={% static "vendors/@popperjs/popper.min.js" %}></script>
   <script src={% static "vendors/bootstrap/bootstrap.min.js" %}></script>
   <script src={% static "vendors/is/is.min.js" %}></script>

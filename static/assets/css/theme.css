@@ -18546,7 +18546,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .nav-link-text {
-  color: #607080;
+  color: #2D033B;;
   word-break: break-word;
   font-weight: bold;
   -webkit-transition: all .2s ease-in-out;
@@ -18560,7 +18560,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .voyage-tabs .nav-link {
   border: 2px solid transparent;
-  color: #607080;
+  color: #2D033B;;
 }
 
 .voyage-tabs .nav-link:hover, .voyage-tabs .nav-link:focus {
