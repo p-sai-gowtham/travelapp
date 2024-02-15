@@ -13,16 +13,16 @@
 
   <style>
     :root {
-      --text-color-light: #191818;
-      --bg-color-light: #BEADFA;
-      --text-color-dark: #fff;
-      --bg-color-dark: #D7A1F9;
+      --text-color-light: #2D033B;
+      --bg-color-light: #DFCCFB;
+      --text-color-dark: #DFCCFB;
+      --bg-color-dark: #440065
+
     }
 
     body {
-
       color: var(--text-color-light) !important;
-      background-color: #ffffff;
+      background-color: #fff;
     }
 
     body.dark-mode {
@@ -30,29 +30,23 @@
       background-color: var(--bg-color-dark);
     }
 
-    .nav-link-text {
+    .nav-link-text,.nav-link-icon {
       color: #fff !important;
     }
 
-    .nav-link-icon {
-      color: #fff !important;
-    }
+    
 
-    .navbar {
-      background-color: #33186B !important;
-      color: #ffd1c9 !important;
-    }
-  .navbar.dark-mode {
-      background-color: #240338 !important;
-      color: #FFF8C9 !important;
+    .navbar{
+      background-color: #000 !important;
+      color: #DFCCFB !important;
     }
 
     .dark-word {
-      color: #FFF8C9 !important;
+      color: #DFCCFB !important;
     }
 
     .navbar.dark-mode .navbar-brand .fw-bold.text-primary.ms-2 {
-      color: #FFF8C9 !important;
+      color: #DFCCFB !important;
     }
   </style>
   {% block css %}
@@ -62,7 +56,7 @@
 
 <body class="dark">
   <main class="main" id="top">
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block dark"
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block"
       data-navbar-on-scroll="data-navbar-on-scroll">
       <div class="container"><a class="navbar-brand" href="/"><img class="d-inline-block"
             src="{% static 'assets/img/gallery/logo.png'%}" width="50" alt="logo" /><span
@@ -74,13 +68,13 @@
           <ul class="navbar-nav mx-auto pt-2 pt-lg-0 font-base">
             <li class="nav-item px-2">
               <a class="nav-link flight-link darkw" href="{% url 'app:bookedflights' %}">
-                <span class="nav-link-icon text-800 me-1 fas fa-plane dark"></span>
+                <span class="nav-link-icon text-800 me-1 fas fa-plane"></span>
                 <span class="nav-link-text darkw">Flight Bookings</span>
               </a>
             </li>
             <li class="nav-item px-2">
               <a class="nav-link hotel-link darkw" href="{% url 'app:bookedhotels' %}">
-                <span class="nav-link-icon text-800 me-1 fas fa-hotel dark"></span>
+                <span class="nav-link-icon text-800 me-1 fas fa-hotel"></span>
                 <span class="nav-link-text darkw">Hotel Bookings</span>
               </a>
             </li>
@@ -91,10 +85,10 @@
               Mode</button>
             {% if user.is_authenticated %}
             <a href={% url "user:logout" %} class="btn btn-voyage-outline order-0" type="submit"><span
-                class="text-primary darkw">Sign Out</span></a>
+                class="nav-link-text">Sign Out</span></a>
             {% else %}
             <a href={% url "user:login" %} class="btn btn-voyage-outline order-0" type="submit"><span
-                class="text-primary darkw">Sign in</span></a>
+                class="nav-link-text">Sign in</span></a>
             {% endif %}
 
           </form>
