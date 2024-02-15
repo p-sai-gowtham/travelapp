@@ -35,39 +35,39 @@
                 <div class="frow center-lg">
 
                     {% for hotel in Hotels %}
-                    <div class="rooms fcol fcol-2">
+                    <div class="rooms fcol fcol-2 dark">
                         <img width="50%" src="{{ hotel.hotel_image.url }}" alt="" class="rooms-img">
-                        <h3 class="room-title"> {{ hotel.hotel_name }} </h3>
+                        <h3 class="room-title darkw"> {{ hotel.hotel_name }} </h3>
                         <p class="room-text">{{ hotel.des }}</p>
                         <div>
                             <div class="details-fcontainer">
                                 <img src="{% static 'assets/img/check-square.svg'%}" alt="tick" class="list-icon">
-                                <p class="list-text">2 Persons</p>
+                                <p class="list-text darkw">2 Persons</p>
                             </div>
                             <div class="details-fcontainer">
                                 <img src="{% static 'assets/img/check-square.svg'%}" alt="tick" class="list-icon">
-                                <p class="list-text">1 Kingsize bed</p>
+                                <p class="list-text darkw">1 Kingsize bed</p>
                             </div>
                             <div class="details-fcontainer">
                                 <img src="{% static 'assets/img/check-square.svg'%}" alt="tick" class="list-icon">
-                                <p class="list-text">{{ hotel.rooms }} available</p>
+                                <p class="list-text darkw">{{ hotel.rooms }} available</p>
                             </div>
                             <div class="details-fcontainer">
                                 <img src="{% static 'assets/img/icons/loc.png'%}" alt="tick" class="list-icon">
-                                <p class="list-text">{{ hotel.city }} </p>
+                                <p class="list-text darkw">{{ hotel.city }} </p>
                             </div>
                         </div>
-                        <p class="amount-text">{{ hotel.hotel_price }}</p>
+                        <p class="amount-text darkw">{{ hotel.hotel_price }}</p>
 
 
-                        <p class="add-text">{{ hotel.hotel_address }}</p>
+                        <p class="add-text darkw">{{ hotel.hotel_address }}</p>
 
                         <div class="buttons-fcontainer row">
                             <div class="col-1">
                                 <i class="fa fa-star"></i>
                                 <!-- <a href="#" class="fbtn fbtn-fill col">{{ hotel.hotel_rating }}</a> -->
                             </div>
-                            <p class="rating col-2">{{ hotel.hotel_rating}}</p>
+                            <p class="rating col-2 darkw">{{ hotel.hotel_rating}}</p>
 
                             <form action="{% url 'app:bookhotel' %}" class="col-4" method="post">
                                 {% csrf_token %}

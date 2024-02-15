@@ -103,10 +103,9 @@
   font-size: 69%;
 }
 
-
 .fbtn {
   border-radius: 3px;
-  border: 1px solid #D4AF37;
+  border: 1px solid #d4af37;
   text-transform: uppercase;
   font-size: 55%;
   padding: 10px 18px;
@@ -117,7 +116,7 @@
 }
 
 .fbtn-fill {
-  background-color: #D4AF37;
+  background-color: #d4af37;
   color: #fff;
 }
 
@@ -129,13 +128,13 @@
 }
 
 .fbtn-ghost {
-  color: #D4AF37;
+  color: #d4af37;
   background-color: #fff;
 }
 
 .fbtn-ghost:hover,
 .fbtn-ghost:active {
-  background-color: #D4AF37;
+  background-color: #d4af37;
   color: #fff;
 }
 
@@ -163,14 +162,32 @@
   cursor: pointer;
 }
 
+.rooms {
+  border: 0.5px solid #050505;
+  box-shadow: 0px 0px 15px 0.5px #4e4b4b;
+
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: transform 0.3s ease-in-out;
+}
+.rooms:hover {
+  transform: scale(1.05); 
+}
+.rooms.dark-mode {
+  box-shadow: 0px 0px 15px 0.5px #faf6f6;
+  background-color: #613385;
+}
 .active-header {
-  color: #241E09;
+  color: #241e09;
 }
 
 .active-header::after {
   display: block;
   height: 1px;
-  background-color: #D4AF37;
+  background-color: #d4af37;
   content: "";
   width: 90px;
   margin: 15px auto 0;
@@ -189,7 +206,6 @@
 .rooms-img {
   width: 100%;
   height: 200px;
-
 }
 
 .room-text {
@@ -283,7 +299,6 @@
   .rooms-img {
     width: 100%;
   }
-
 }
 
 @media (max-width: 375px) {
