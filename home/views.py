@@ -124,6 +124,8 @@ def Flightbook(request):
                 dest_time=flights[0].dest_time,
                 journey_time=flights[0].journey_time,
                 company=flights[0].company,
+                lat=flights[0].lat,
+                lon=flights[0].lon,
             )
             b.save()
             messages.success(request, "Booked")
@@ -164,6 +166,8 @@ def Hotelbook(request):
                 hotel_price=hotels[0].hotel_price,
                 hotel_rating=hotels[0].hotel_rating,
                 hotel_des=hotels[0].hotel_des,
+                lat=hotels[0].lat,
+                lon=hotels[0].lon,
             )
             b.save()
             messages.success(request, "Booked")

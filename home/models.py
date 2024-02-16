@@ -17,6 +17,8 @@ class Flights(models.Model):
     journey_time = models.IntegerField(null=True)
     company = models.CharField(max_length=15, default=" ")
     seats = models.IntegerField()
+    lat = models.FloatField(null=True)
+    lon = models.FloatField(null=True)
 
     def __str__(self):
         return self.flight_num
@@ -31,6 +33,9 @@ class Hotels(models.Model):
     hotel_rating = models.IntegerField(null=True)
     hotel_des = models.CharField(max_length=500)
     rooms = models.IntegerField(default=0)
+    lat = models.FloatField(null=True)
+    lon = models.FloatField(null=True)
+
 
     def __str__(self):
         return self.hotel_name
@@ -50,6 +55,9 @@ class BookFlight(models.Model):
     dest_time = models.TimeField(auto_now=False, auto_now_add=False)
     journey_time = models.IntegerField(null=True)
     company = models.CharField(max_length=15, default=" ")
+    lat = models.FloatField(null=True)
+    lon = models.FloatField(null=True)
+
 
     def __str__(self):
         return self.flight_num
@@ -68,7 +76,8 @@ class BookHotel(models.Model):
     hotel_price = models.IntegerField(null=True)
     hotel_rating = models.IntegerField(null=True)
     hotel_des = models.CharField(max_length=500)
-    
+    lat = models.FloatField(null=True)
+    lon = models.FloatField(null=True)
 
     def __str__(self):
         return self.hotel_name
