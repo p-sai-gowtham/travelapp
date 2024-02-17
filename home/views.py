@@ -8,7 +8,24 @@ from .models import Flights, Hotels, BookFlight, BookHotel
 
 @login_required
 def home(request):
-    return render(request, "home/index.html")
+    hotels= Hotels.object.all()
+    hdet={
+        "features" : []
+    }
+    for i in hotels:
+        hdet."features".append({
+            "type": "Feature",
+            "properties": {
+                "description": i.hotel_name,
+                "icon": "lodging"
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [i.lon, i.lat]
+            }
+        })
+    return render(request, "home/index.html ", hdet)
+
 
 
 def hotel(request):
