@@ -1,7 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block css %}
-<link href="{% static 'assets/css/hotels.css' %}" rel="stylesheet" />
+<link href="{% static 'assets/css/hotels.css' %}" rel="stylesheet" />'
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js"></script>'
+<style>
+    #cluster-map {
+      width: 100%;
+      height: 500px;
+    }
+    
+  </style>
 {% endblock %}
 
 {% block content %}
@@ -14,6 +23,10 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         {% endfor %}
+
+<div id="cluster-map"></div>
+
+
         <div class="fcontainer">
 
             <!-- Top Text -->
@@ -75,8 +88,11 @@
                                 <input type="hidden" name="fdate" value="{{ fdate }}">
                                 <input type="hidden" name="tdate" value="{{ tdate }}">
                                 <input type="hidden" name="rooms" value="{{ rooms }}">
+                                
                                 {% if Page == 'Hotels' %}
                                 <button type="submit" class="fbtn fbtn-ghost col">Book Now</button>
+                                {% elif Page == 'All Hotels' %}
+                                
                                 {% else %}
                                 <button class="fbtn fbtn-ghost col" disabled>Booked</button>
                                 {% endif %}
@@ -98,7 +114,6 @@
 
 
 {% block js %}
-<script src={% static "assets/js/hotels.js" %}></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const darkModeToggle = document.getElementById('darkModeToggle');
@@ -153,4 +168,23 @@
 
     });
 </script>
+
+<script>
+  
+    const campgrounds = {{ hdet|safe }}
+    const mapToken = 'pk.eyJ1IjoicHNhaSIsImEiOiJjbGtmOWJwaTMxdW1wM2V0amMyajBrbGVoIn0.WQKaqwc8MrvvOFtxalsP1A';
+    const map = new mapboxgl.Map({
+        container: 'cluster-map',
+        style: 'mapbox://styles/mapbox/light-v10',
+        center: [campgrounds.features[0].geometry.coordinates[0], campgrounds.features[0].geometry.coordinates[1]],
+        {% if Page == 'Hotels' or Page == 'Booked Hotels' %}
+        zoom: 7,
+        {% else %}
+        zoom: 1,
+        {% endif %}
+        accessToken: mapToken
+      });
+    </script>
+    
+    <script src={% static "assets/js/map.js" %} ></script>
 {% endblock js %}

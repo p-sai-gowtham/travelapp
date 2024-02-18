@@ -1,32 +1,67 @@
+from pyexpat import features
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Flights, Hotels, BookFlight, BookHotel
+import json
 
 # Create your views here.
 
 
 @login_required
 def home(request):
-    hotels= Hotels.object.all()
+    hotels= Hotels.objects.all()
+    features = []
     hdet={
-        "features" : []
+        "features": features
     }
     for i in hotels:
-        hdet."features".append({
+        hdet["features"].append({
             "type": "Feature",
             "properties": {
-                "description": i.hotel_name,
-                "icon": "lodging"
+                "name": i.hotel_name,
+                "address": i.hotel_address,
+                "rating": i.hotel_rating,
             },
             "geometry": {
                 "type": "Point",
                 "coordinates": [i.lon, i.lat]
             }
         })
-    return render(request, "home/index.html ", hdet)
+    json.dumps(hdet)
+    return render(request, "home/index.html", {"hdet": hdet})
 
 
+@login_required
+def allHotels(request):
+    hotels = Hotels.objects.all()
+    features = []
+    hdet={
+        "features": features
+    }
+    for i in hotels:
+        hdet["features"].append({
+            "type": "Feature",
+            "properties": {
+                "name": i.hotel_name,
+                "address": i.hotel_address,
+                "rating": i.hotel_rating,
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [i.lon, i.lat]
+            }
+        })
+    json.dumps(hdet)
+    response = {"Hotels": hotels, "Page": "All Hotels", "hdet": hdet}
+
+    return render(request, "home/hotels.html", response)
+
+@login_required
+def allFlights(request):
+    flights = Flights.objects.all()
+    response = {"Flights": flights, "Page": "Flights"}
+    return render(request, "home/flights.html", response)
 
 def hotel(request):
     if request.method == "POST":
@@ -49,6 +84,26 @@ def hotel(request):
             available_rooms = i.rooms - booked_rooms
             if available_rooms >= rooms:
                 available_hotels.append(i)
+        features = []
+        hdet={
+            "features": features
+        }
+        for i in available_hotels:
+            hdet["features"].append({
+                "type": "Feature",
+                "properties": {
+                    "name": i.hotel_name,
+                    "address": i.hotel_address,
+                    "rating": i.hotel_rating,
+                },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [i.lon, i.lat]
+                }
+            })
+        json.dumps(hdet)
+
+        
         if len(available_hotels) == 0:
             messages.error(request, "No hotels available")
             return redirect("/")
@@ -59,6 +114,7 @@ def hotel(request):
                 "tdate": tdate,
                 "rooms": rooms,
                 "Page": "Hotels",
+                "hdet": hdet
             }
             return render(request, "home/hotels.html", response)
 
@@ -111,7 +167,25 @@ def Bookedhotels(request):
     user = request.user
     print(user)
     hotels = BookHotel.objects.all().filter(username_id=user)
-    response = {"Hotels": hotels, "Page": "Booked Hotels"}
+    features = []
+    hdet={
+        "features": features
+    }
+    for i in hotels:
+        hdet["features"].append({
+            "type": "Feature",
+            "properties": {
+                "name": i.hotel_name,
+                "address": i.hotel_address,
+                "rating": i.hotel_rating,
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [i.lon, i.lat]
+            }
+        })
+    json.dumps(hdet)
+    response = {"Hotels": hotels, "Page": "Booked Hotels", "hdet": hdet}
     return render(request, "home/hotels.html", response)
 
 

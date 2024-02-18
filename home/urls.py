@@ -14,4 +14,6 @@ urlpatterns = [
     path("bookhotel/", views.Hotelbook, name="bookhotel"),
     path("bookedflights/", views.Bookedflights, name="bookedflights"),
     path("bookedhotels/", views.Bookedhotels, name="bookedhotels"),
+    path('hotel/', views.allHotels, name='allHotels'),
+    path('flight/', views.allFlights, name='allFlights'),
 ]

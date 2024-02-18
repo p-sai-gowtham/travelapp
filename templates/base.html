@@ -67,6 +67,18 @@
         <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
           <ul class="navbar-nav mx-auto pt-2 pt-lg-0 font-base">
             <li class="nav-item px-2">
+              <a class="nav-link flight-link darkw" href="{% url 'app:allHotels' %}">
+                <span class="nav-link-icon text-800 me-1 fas fa-hotel"></span>
+                <span class="nav-link-text darkw">Hotels</span>
+              </a>
+            </li>
+            <li class="nav-item px-2">
+              <a class="nav-link flight-link darkw" href="{% url 'app:allFlights' %}">
+                <span class="nav-link-icon text-800 me-1 fas fa-plane"></span>
+                <span class="nav-link-text darkw">Flights</span>
+              </a>
+            </li>
+            <li class="nav-item px-2">
               <a class="nav-link flight-link darkw" href="{% url 'app:bookedflights' %}">
                 <span class="nav-link-icon text-800 me-1 fas fa-plane"></span>
                 <span class="nav-link-text darkw">Flight Bookings</span>
@@ -106,7 +118,6 @@
   <script src={% static "vendors/@popperjs/popper.min.js" %}></script>
   <script src={% static "vendors/bootstrap/bootstrap.min.js" %}></script>
   <script src={% static "vendors/is/is.min.js" %}></script>
-  <script src={% static "https://polyfill.io/v3/polyfill.min.js?features=window.scroll" %}></script>
   <script src={% static "vendors/fontawesome/all.min.js" %}></script>
   <script src={% static "assets/js/theme.js" %}></script>
   <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&amp;display=swap"
