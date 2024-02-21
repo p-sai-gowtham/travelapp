@@ -109,7 +109,7 @@
             <label class="form-label darkw" for="inputPeopleTwo">No. of Seats</label>
             <div class="input-group-icon">
               <input class="form-control input-box form-voyage-control" id="inputPeopleTwo" type="text" required
-                name="seats" placeholder="From where" /><span
+                name="seats" placeholder="Eg : 2" /><span
                 class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
             </div>
           </div>
@@ -178,10 +178,10 @@
         const date_value = document.querySelectorAll('.date_value');
         const seats_value = document.querySelectorAll('.seats_value');
         if (date == "") {
-          alert("Please select a date");
+          alert("Please select a date from above");
           return false;
         } else if (seats == "") {
-          alert("Please enter the number of seats");
+          alert("Please enter the number of seats from above");
           return false;
         }
         
