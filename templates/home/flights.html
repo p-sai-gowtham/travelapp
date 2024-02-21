@@ -8,7 +8,12 @@
     display: flex;
     overflow-x: auto; 
   }
-
+  .no{
+    position: absolute;
+    top:300px;
+    left:700px;
+    font-size:25px;
+}
   .card {
     flex: 0 0 auto;
     margin-right: 20px;
@@ -84,10 +89,39 @@
     {% endfor %}
 
     <div class="fcontainer card-container">
+
+
       <section class="rooms-section">
+        {% if Page == 'All Flights' %}
+          
+        <div class="col-4">
+          <div class="input-group-icon">
+            <label class="form-label darkw" for="inputJourneyDate">Journey Date</label>
+            <input required class="form-control input-box form-voyage-control" id="inputDateThree" type="date"
+              name="date" />
+          </div>
+        </div>
+
+        <div class="col-4">
+        </div>
+
+          <div class="col-4">
+            <label class="form-label darkw" for="inputPeopleTwo">No. of Seats</label>
+            <div class="input-group-icon">
+              <input class="form-control input-box form-voyage-control" id="inputPeopleTwo" type="text" required
+                name="seats" placeholder="From where" /><span
+                class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
+            </div>
+          </div>
+{% endif %}
         <div class="frow center-lg">
+
+
+
+{% if Flights %}
+
           {% for flight in Flights %}
-          <div class="rooms fcol fcol-4 card">
+          <div class="rooms fcol fcol-4 card mt-4">
             <div class="card-body">
               <div class="card-graphic">
                 <img src="{% static 'assets\img\cc33e6304b84c490b8c5192fdbb6e29d.jpg' %}">
@@ -109,21 +143,26 @@
               </div>
               <p class="amount-text">{{ flight.eprice }}</p>
               <div class="buttons-fcontainer">
-                <form action="{% url 'app:bookflight' %}" method="post">
+                <form action="{% url 'app:bookflight' %}" onsubmit=" return DoSubmit(); " method="post">
                   {% csrf_token %}
                   <input type="hidden" name="flight" value="{{ flight.flight_num }}" />
-                  <input type="hidden" name="date" value="{{ date }}" />
-                  <input type="hidden" name="seats" value="{{ seats }}" />
-                  {% if Page == 'Flights' %}
-                  <button class="fbtn fbtn-ghost">Book Now</button>
-                  {% else %}
+                  <input type="hidden" class="date_value" name="date" value="{{ date }}" />
+                  <input type="hidden" class="seats_value" name="seats" value="{{ seats }}" />
+                  {% if Page == 'Booked Flights' %}
                   <button class="fbtn fbtn-ghost" disabled>Booked</button>
+                  {% else %}
+                  <button class="fbtn fbtn-ghost">Book Now</button>
                   {% endif %}
                 </form>
               </div>
             </div>
           </div>
           {% endfor %}
+          {% else %}
+          <div class="position-relative">
+            <p class="no">No Bookings</p>
+        </div>
+            {% endif %}
         </div>
       </section>
     </div>
@@ -132,6 +171,32 @@
 
 {% endblock %} {% block js %}
 <script>
+
+      function DoSubmit() {
+        var date = document.getElementById('inputDateThree').value;
+        var seats = document.getElementById('inputPeopleTwo').value;
+        const date_value = document.querySelectorAll('.date_value');
+        const seats_value = document.querySelectorAll('.seats_value');
+        if (date == "") {
+          alert("Please select a date");
+          return false;
+        } else if (seats == "") {
+          alert("Please enter the number of seats");
+          return false;
+        }
+        
+        date_value.forEach((element) => {
+          element.value = date;
+      });
+
+      seats_value.forEach((e)=>{
+        e.value = seats;
+      })
+
+        return true;
+      }
+
+
       document.addEventListener('DOMContentLoaded', () => {
         const darkModeToggle = document.getElementById('darkModeToggle');
         const mode = localStorage.getItem("darkMode");

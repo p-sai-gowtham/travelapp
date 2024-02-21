@@ -9,7 +9,12 @@
       width: 100%;
       height: 500px;
     }
-    
+    .no{
+        position: absolute;
+        top:300px;
+        left:700px;
+        font-size:25px;
+    }
   </style>
 {% endblock %}
 
@@ -23,32 +28,52 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         {% endfor %}
+        {% if Hotels %}
 
-<div id="cluster-map"></div>
+
+        <div id="cluster-map"></div>
 
 
         <div class="fcontainer">
-
-            <!-- Top Text -->
-
-
-            <!-- Rooms -->
+            
             <section class="rooms-section">
                 <div class="frow room-section-header-fcontainer">
-                    <!-- <div class="fcol fcol-3">
-                    <h4 class="room-section-header active-header" id="standard-room">Standard Rooms</h4>
-                </div> -->
-                    <!-- <div class="fcol fcol-3">
-                  <h4 class="room-section-header" id="executive-room">Executive Rooms</h4>
-              </div>
-              <div class="fcol fcol-3">
-                  <h4 class="room-section-header" id="king-room">King Suites</h4>
-              </div> -->
                 </div>
                 <div class="frow center-lg">
 
+                    {% if Page == 'All Hotels' %}
+                    <div class="col-4">
+                        <div class="input-group-icon">
+                          <label class="form-label" for="inputFromDate">From</label>
+                          <input required class="form-control input-box form-voyage-control" id="inputDateThree" type="date"
+                            name="fdate" />
+                        </div>
+                      </div>
+    
+                      <div class="col-4">
+                        <div class="input-group-icon">
+                          <label class="form-label" for="inputToDate">To</label>
+                          <input required class="form-control input-box form-voyage-control" id="inputDateThree" type="date"
+                            name="tdate" />
+                        </div>
+                      </div>
+    
+                      
+    
+                      <div class="col-4">
+                        <label class="form-label" for="inputPeopleTwo">No. of Rooms</label>
+                        <div class="input-group-icon">
+                          <input class="form-control input-box form-voyage-control" id="inputPeopleTwo" type="text" required
+                            name="rooms" placeholder="No. of Rooms" /><span
+                            class="nav-link-icon text-800 fs--1 input-box-icon"><i class="fas fa-map-marker-alt"></i></span>
+                        </div>
+                      </div>
+
+                      {% endif %}
+
+
                     {% for hotel in Hotels %}
-                    <div class="rooms fcol fcol-2 dark">
+                    <div class="rooms fcol fcol-2 dark mt-3">
                         <img width="50%" src="{{ hotel.hotel_image.url }}" alt="" class="rooms-img">
                         <h3 class="room-title darkw"> {{ hotel.hotel_name }} </h3>
                         <p class="room-text">{{ hotel.des }}</p>
@@ -82,19 +107,17 @@
                             </div>
                             <p class="rating col-2 darkw">{{ hotel.hotel_rating}}</p>
 
-                            <form action="{% url 'app:bookhotel' %}" class="col-4" method="post">
+                            <form action="{% url 'app:bookhotel' %}" onsubmit="return DoSubmit();" class="col-4" method="post">
                                 {% csrf_token %}
                                 <input type="hidden" name="hotel" value="{{ hotel.hotel_name }}">
-                                <input type="hidden" name="fdate" value="{{ fdate }}">
-                                <input type="hidden" name="tdate" value="{{ tdate }}">
-                                <input type="hidden" name="rooms" value="{{ rooms }}">
+                                <input type="hidden" class="fdate_value" name="fdate" value="{{ fdate }}">
+                                <input type="hidden" class="tdate_value" name="tdate" value="{{ tdate }}">
+                                <input type="hidden" class="rooms_value" name="rooms" value="{{ rooms }}">
                                 
-                                {% if Page == 'Hotels' %}
-                                <button type="submit" class="fbtn fbtn-ghost col">Book Now</button>
-                                {% elif Page == 'All Hotels' %}
-                                
-                                {% else %}
+                                {% if Page == 'Booked Hotels' %}
                                 <button class="fbtn fbtn-ghost col" disabled>Booked</button>
+                                {% else %}
+                                <button type="submit" class="fbtn fbtn-ghost col">Book Now</button>
                                 {% endif %}
                             </form>
 
@@ -103,6 +126,11 @@
                     </div>
 
                     {% endfor %}
+                    {% else %}
+                    <div class="position-relative">
+                    <p class="no">No Bookings</p>
+                </div>
+                    {% endif %}
 
                 </div>
             </section>
@@ -115,6 +143,35 @@
 
 {% block js %}
 <script>
+
+    function DoSubmit(){
+        const fdate = document.getElementById('inputDateThree').value;
+        const tdate = document.getElementById('inputDateThree').value;
+        const room = document.getElementById('inputPeopleTwo').value;
+        const rooms = document.querySelectorAll('.rooms_value');
+        const fdates = document.querySelectorAll('.fdate_value');
+        const tdates = document.querySelectorAll('.tdate_value');
+
+        if(fdate == "" || tdate == "" || room == ""){
+            alert("Please fill all the fields");
+            return false;
+        }
+
+
+        fdates.forEach((element) => {
+            element.value = fdate
+        });
+        tdates.forEach((element) => {
+            element.value = tdate
+        });
+        rooms.forEach((element) => {
+            element.value = room
+        });
+        return true;
+      }
+
+
+
     document.addEventListener('DOMContentLoaded', () => {
         const darkModeToggle = document.getElementById('darkModeToggle');
         const mode = localStorage.getItem("darkMode");

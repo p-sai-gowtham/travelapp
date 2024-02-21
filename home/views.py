@@ -1,4 +1,5 @@
 from pyexpat import features
+from zoneinfo import available_timezones
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -60,7 +61,7 @@ def allHotels(request):
 @login_required
 def allFlights(request):
     flights = Flights.objects.all()
-    response = {"Flights": flights, "Page": "Flights"}
+    response = {"Flights": flights, "Page": "All Flights"}
     return render(request, "home/flights.html", response)
 
 def hotel(request):
@@ -196,16 +197,18 @@ def Flightbook(request):
         seats = int(request.POST.get("seats"))
         user = request.user
         flights = Flights.objects.all().filter(flight_num=flight)
-        bflight = BookFlight.objects.all().filter(flight_num=flight).filter(date=date)
-        booked_seats = 0
-        for i in bflight:
-            booked_seats += i.seat
-        available_seats = flights[0].seats - booked_seats
+        booked_flights = BookFlight.objects.all().filter(flight_num=flight).filter(date=date)
+        booked_seats= 0
+        for i in booked_flights:
+            booked_seats+= i.seat
+        available_seats= flights[0].seats - booked_seats
+        
+        
         if available_seats >= seats:
             b = BookFlight(
+                date=date,
                 username_id=user,
                 flight_num=flight,
-                date=date,
                 seat=seats,
                 source=flights[0].source,
                 destination=flights[0].destination,
@@ -215,8 +218,6 @@ def Flightbook(request):
                 dest_time=flights[0].dest_time,
                 journey_time=flights[0].journey_time,
                 company=flights[0].company,
-                lat=flights[0].lat,
-                lon=flights[0].lon,
             )
             b.save()
             messages.success(request, "Booked")

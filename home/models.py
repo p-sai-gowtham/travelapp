@@ -6,7 +6,6 @@ from django.conf import settings
 
 
 class Flights(models.Model):
-    date = models.DateField()
     source = models.CharField(max_length=200)
     destination = models.CharField(max_length=200)
     flight_name = models.CharField(max_length=200)
@@ -17,8 +16,6 @@ class Flights(models.Model):
     journey_time = models.IntegerField(null=True)
     company = models.CharField(max_length=15, default=" ")
     seats = models.IntegerField()
-    lat = models.FloatField(null=True)
-    lon = models.FloatField(null=True)
 
     def __str__(self):
         return self.flight_num
